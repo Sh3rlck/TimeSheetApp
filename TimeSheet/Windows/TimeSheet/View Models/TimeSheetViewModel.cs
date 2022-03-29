@@ -33,7 +33,6 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 TimeEntry = "Clock In",
                 TimeStamp = DateTime.Now
             };
-
             TimeLogs.Add(timeLog);
 
             MessageBox.Show("Works");
@@ -52,7 +51,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             get => _lastActivity;
             set => Set(ref _lastActivity, value);
         }
-        //test
+        //Test
 
     }
 }
