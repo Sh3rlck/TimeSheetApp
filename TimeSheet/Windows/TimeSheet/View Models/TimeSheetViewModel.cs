@@ -21,8 +21,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
     
     public class TimeSheetViewModel : ViewModelBase
     {
-        private ICommand _clockOutCommand;
         private string _lastActivity = "No activity registered";
+
+        public ObservableCollection<TimeLog> TimeLogs { get; } = new  ObservableCollection<TimeLog>();
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
 
@@ -38,13 +39,19 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             MessageBox.Show("Works");
         }
 
-        public static ObservableCollection<TimeLog> TimeLogs => new ObservableCollection<TimeLog>(); 
+        public ICommand ClockOutCommand => new RelayCommand(OnClockOutCommand);
 
-        public ICommand ClockOutCommand
+        private void OnClockOutCommand()
         {
-            get => _clockOutCommand;
-            set => Set(ref _clockOutCommand, value);
+            TimeLog timeLog = new TimeLog
+            {
+                TimeEntry = "Clock Out",
+                TimeStamp = DateTime.Now
+            };
+            TimeLogs.Add(timeLog);
+            MessageBox.Show("Works");
         }
+
 
         public string LastActivity
         {

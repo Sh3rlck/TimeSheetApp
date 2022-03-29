@@ -81,7 +81,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Windows\TimeSheet\Models\TimeLog.cs" />
-    <Compile Include="Windows\TimeSheet\View Models\OverviewViewModel.cs" />
     <Compile Include="Windows\TimeSheet\View Models\TimeSheetViewModel.cs" />
     <Page Include="Windows\TimeSheet\TimeSheetWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

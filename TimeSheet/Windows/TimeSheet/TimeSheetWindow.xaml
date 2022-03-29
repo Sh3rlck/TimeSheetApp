@@ -42,7 +42,7 @@
             </TabItem>
             <TabItem Header="Overview">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding Source={x:Static viewModels:TimeSheetViewModel.TimeLogs}}"></DataGrid>
+                    <DataGrid ItemsSource="{Binding TimeLogs}"></DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>
