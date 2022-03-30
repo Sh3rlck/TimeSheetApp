@@ -24,8 +24,6 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
     {
         private string _lastActivity = "No activity registered";
 
-        public ObservableCollection<TimeLog> TimeLogs { get; } = new ObservableCollection<TimeLog>();
-
         public ObservableCollection<Week> WeekDayTimeStamps { get; } = new ObservableCollection<Week>();
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
@@ -37,7 +35,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 case  DayOfWeek.Sunday:
                     Week sunday = new Week
                     {
-                        Tuesday = new TimeLog
+                        Sunday = new TimeLog
                         {
                             TimeEntry = "Clock in",
                             TimeStamp = DateTime.Now
@@ -48,7 +46,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 case  DayOfWeek.Monday:
                     Week monday = new Week
                     {
-                        Tuesday = new TimeLog
+                        Monday = new TimeLog
                         {
                             TimeEntry = "Clock in",
                             TimeStamp = DateTime.Now
@@ -70,7 +68,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 case  DayOfWeek.Wednesday:
                     Week wednesday = new Week
                     {
-                        Tuesday = new TimeLog
+                        Wednesday = new TimeLog
                         {
                             TimeEntry = "Clock in",
                             TimeStamp = DateTime.Now
@@ -81,7 +79,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 case  DayOfWeek.Thursday:
                     Week thursday = new Week
                     {
-                        Tuesday = new TimeLog
+                        Thursday = new TimeLog
                         {
                             TimeEntry = "Clock in",
                             TimeStamp = DateTime.Now
@@ -92,7 +90,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 case  DayOfWeek.Friday:
                     Week friday = new Week
                     {
-                        Tuesday = new TimeLog
+                        Friday = new TimeLog
                         {
                             TimeEntry = "Clock in",
                             TimeStamp = DateTime.Now
@@ -103,7 +101,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                 case  DayOfWeek.Saturday:
                     Week saturday = new Week
                     {
-                        Tuesday = new TimeLog
+                        Saturday = new TimeLog
                         {
                             TimeEntry = "Clock in",
                             TimeStamp = DateTime.Now
@@ -122,12 +120,6 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         private void OnClockOutCommand()
         {
-            TimeLog timeLog = new TimeLog
-            {
-                TimeEntry = "Clock Out",
-                TimeStamp = DateTime.Now
-            };
-            TimeLogs.Add(timeLog);
             MessageBox.Show("Works");
         }
 

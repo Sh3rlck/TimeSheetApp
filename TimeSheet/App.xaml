@@ -7,25 +7,9 @@
 
         <ResourceDictionary>
                 
-            <Style x:Key="ClockButtons" TargetType="{x:Type Button}">
-                <Setter Property="FontFamily" Value="Arial"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
-                                <Rectangle x:Name="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RadiusX="20" RadiusY="20" Fill="{TemplateBinding Background}" Stroke="LightSlateGray"></Rectangle>
-                                <DockPanel Name="myContentPresenterDockPanel">
-                                    <ContentPresenter x:Name="myContentPresenter" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding  Content}" TextBlock.Foreground="Black" />
-                                </DockPanel>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+            <!-- <Style TargetType="{x:Type DataGridColumnHeader}"> -->
+            <!--     <Setter Property="HorizontalContentAlignment" Value="Center"></Setter> -->
+            <!-- </Style> -->
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
