@@ -11,5 +11,9 @@ namespace TimeSheet.Windows.TimeSheet.Models
         public string TimeEntry { get; set; } 
         public DateTime TimeStamp { get; set; }
 
+        public override string ToString()
+        {
+            return TimeEntry + " " + TimeStamp;
+        }
     }
 }
