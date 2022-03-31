@@ -6,7 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
         mc:Ignorable="d"
-        Height="400" Width="800" 
+        Height="400" Width="850" 
         Background="Gainsboro" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.DataContext>
@@ -42,8 +42,24 @@
             </TabItem>
             <TabItem Header="Overview">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding WeekTimeStamps}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="SizeToCells" MinColumnWidth="110">
-                    </DataGrid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".5*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Grid.Row="1" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
+                        <DataGrid Margin="5" ItemsSource="{Binding WeekTimeStamps}" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sunday" Binding="{Binding Sunday}"/>
+                                <DataGridTextColumn Header="Monday" Binding="{Binding Monday}"/>
+                                <DataGridTextColumn Header="Tuesday" Binding="{Binding Tuesday}"/>
+                                <DataGridTextColumn Header="Wednesday" Binding="{Binding Wednesday}"/>
+                                <DataGridTextColumn Header="Thursday" Binding="{Binding Thursday}"/>
+                                <DataGridTextColumn Header="Friday" Binding="{Binding Friday}"/>
+                                <DataGridTextColumn Header="Saturday" Binding="{Binding Saturday}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>
