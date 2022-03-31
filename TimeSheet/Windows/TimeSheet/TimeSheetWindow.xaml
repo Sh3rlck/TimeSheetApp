@@ -42,7 +42,8 @@
             </TabItem>
             <TabItem Header="Overview">
                 <Grid>
-                    <DataGrid ItemsSource="{Binding WeekDayTimeStamps}"></DataGrid>
+                    <DataGrid ItemsSource="{Binding WeekTimeStamps}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" ColumnWidth="SizeToCells" MinColumnWidth="110">
+                    </DataGrid>
                 </Grid>
             </TabItem>
         </TabControl>

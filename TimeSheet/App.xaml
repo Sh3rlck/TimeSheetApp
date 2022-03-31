@@ -1,15 +1,10 @@
 ﻿<Application x:Class="TimeSheet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TimeSheet"
              StartupUri="Windows/TimeSheet/TimeSheetWindow.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
-                
-            <!-- <Style TargetType="{x:Type DataGridColumnHeader}"> -->
-            <!--     <Setter Property="HorizontalContentAlignment" Value="Center"></Setter> -->
-            <!-- </Style> -->
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

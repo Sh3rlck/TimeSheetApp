@@ -13,7 +13,7 @@ namespace TimeSheet.Windows.TimeSheet.Models
 
         public override string ToString()
         {
-            return TimeEntry + " " + TimeStamp;
+            return TimeEntry + " at " + TimeStamp;
         }
     }
 }

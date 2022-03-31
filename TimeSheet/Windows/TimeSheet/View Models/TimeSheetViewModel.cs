@@ -15,16 +15,12 @@ using TimeSheet.Windows.TimeSheet.Models;
 
 namespace TimeSheet.Windows.TimeSheet.View_Models
 {
-    public enum WeekDays
-    {
-        Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
-    }
-    
+
     public class TimeSheetViewModel : ViewModelBase
     {
         private string _lastActivity = "No activity registered";
 
-        public ObservableCollection<Week> WeekDayTimeStamps { get; } = new ObservableCollection<Week>();
+        public ObservableCollection<Week> WeekTimeStamps { get; } = new ObservableCollection<Week>();
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
 
@@ -41,7 +37,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(sunday);
+                    
+                    WeekTimeStamps.Add(sunday);
+                   LastActivity = sunday.Sunday.ToString();
                     break;
                 case  DayOfWeek.Monday:
                     Week monday = new Week
@@ -52,7 +50,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(monday);
+                    WeekTimeStamps.Add(monday);
+                    LastActivity = monday.Monday.ToString();
                     break;
                 case  DayOfWeek.Tuesday:
                     Week tuesday = new Week
@@ -63,7 +62,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(tuesday);
+                    WeekTimeStamps.Add(tuesday);
+                    LastActivity = tuesday.Tuesday.ToString();
                     break;
                 case  DayOfWeek.Wednesday:
                     Week wednesday = new Week
@@ -74,7 +74,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(wednesday);
+                    WeekTimeStamps.Add(wednesday);
+                    LastActivity = wednesday.Wednesday.ToString();
                     break;
                 case  DayOfWeek.Thursday:
                     Week thursday = new Week
@@ -85,7 +86,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(thursday);
+                    WeekTimeStamps.Add(thursday);
+                    LastActivity = thursday.Thursday.ToString();
                     break;
                 case  DayOfWeek.Friday:
                     Week friday = new Week
@@ -96,7 +98,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(friday);
+                    WeekTimeStamps.Add(friday);
+                    LastActivity = friday.Friday.ToString();
                     break;
                 case  DayOfWeek.Saturday:
                     Week saturday = new Week
@@ -107,13 +110,12 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                             TimeStamp = DateTime.Now
                         }
                     };
-                    WeekDayTimeStamps.Add(saturday);
+                    WeekTimeStamps.Add(saturday);
+                    LastActivity = saturday.Saturday.ToString();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            MessageBox.Show("works");
         }
 
         public ICommand ClockOutCommand => new RelayCommand(OnClockOutCommand);
