@@ -24,6 +24,27 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
 
+        public ICommand PreviousWeekCommand => new RelayCommand(OnPreviousWeekCommand);
+
+        private void OnPreviousWeekCommand()
+        {
+            MessageBox.Show("Works");
+        }
+
+        public ICommand NextWeekCommand => new RelayCommand(OnNextWeekCommand);
+
+        private void OnNextWeekCommand()
+        {
+            MessageBox.Show("Works");
+        }
+
+        public ICommand SearchCommand => new RelayCommand(OnGoCommand);
+
+        private void OnGoCommand()
+        {
+            MessageBox.Show("Works");
+        }
+
         private void OnClockInCommand()
         {
             switch (DateTime.Now.DayOfWeek)

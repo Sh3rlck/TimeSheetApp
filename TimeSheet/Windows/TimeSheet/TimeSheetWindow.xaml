@@ -6,17 +6,22 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
         mc:Ignorable="d"
-        Height="400" Width="850" 
+        SizeToContent="WidthAndHeight"
         Background="Gainsboro" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.DataContext>
         <viewModels:TimeSheetViewModel/>
     </Window.DataContext>
 
+<Window.Resources>
+    <Style BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+    </Style> 
+</Window.Resources>
     <Grid Margin="10">
         <TabControl>
             <TabItem Header="Time Punch">
-                <Grid Height="125">
+                <Grid Height="125" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="*"/>
@@ -31,32 +36,45 @@
                     <mah:MetroHeader Grid.Row="0" Grid.Column="1" Content="Commands" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <mah:MetroHeader Grid.Row="0" Grid.Column="2" Content="Last Activity" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Jean Hernandez" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Jean Hernandez" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <Button Command="{Binding ClockInCommand}"  Content="Clock in" Width="135.5" Margin="5, 0, 2.5, 0" Height="50" Background="LawnGreen"/>
                         <Button Command="{Binding ClockOutCommand}" Content="Clock out" Width="135.5" Margin="2.5, 0, 5, 0" Height="50" Background="Red"/>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding LastActivity}" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Margin="5" Text="{Binding LastActivity}" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </Grid>
             </TabItem>
             <TabItem Header="Overview">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".5*"/>
+                        <RowDefinition Height=".25*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
+                    <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="2, 0, 2, 0" Focusable="False" Command="{Binding PreviousWeekCommand}">
+                                <Image Source="../../Resources/Less than.png" Height="15" Width="15"></Image>
+                            </Button>
+                            <TextBox mah:TextBoxHelper.Watermark="Week" Margin="0, 0, 1, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <TextBox mah:TextBoxHelper.Watermark="Year" Margin="1, 0, 0, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <Button Margin="2, 0, 2, 0" Focusable="False" Command="{Binding SearchCommand}">
+                                <Image Source="../../Resources/Magnifying glass.png" Height="15" Width="15"></Image>
+                            </Button>
+                            <Button Margin="0, 0, 2, 0" Focusable="False" Command="{Binding NextWeekCommand}">
+                                <Image Source="../../Resources/Greater than.png" Height="15" Width="15"></Image>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                     <GroupBox Grid.Row="1" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ItemsSource="{Binding WeekTimeStamps}" AutoGenerateColumns="False">
+                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Sunday" Binding="{Binding Sunday}"/>
-                                <DataGridTextColumn Header="Monday" Binding="{Binding Monday}"/>
-                                <DataGridTextColumn Header="Tuesday" Binding="{Binding Tuesday}"/>
-                                <DataGridTextColumn Header="Wednesday" Binding="{Binding Wednesday}"/>
-                                <DataGridTextColumn Header="Thursday" Binding="{Binding Thursday}"/>
-                                <DataGridTextColumn Header="Friday" Binding="{Binding Friday}"/>
-                                <DataGridTextColumn Header="Saturday" Binding="{Binding Saturday}"/>
+                                <DataGridTextColumn Header="Monday" Binding="{Binding Monday}"  Width="SizeToCells" MinWidth="100"/>
+                                <DataGridTextColumn Header="Tuesday" Binding="{Binding Tuesday}" Width="SizeToCells" MinWidth="100"/>
+                                <DataGridTextColumn Header="Wednesday" Binding="{Binding Wednesday}" Width="SizeToCells" MinWidth="100"/>
+                                <DataGridTextColumn Header="Thursday" Binding="{Binding Thursday}"  Width="SizeToCells" MinWidth="100"/>
+                                <DataGridTextColumn Header="Friday" Binding="{Binding Friday}" Width="SizeToCells" MinWidth="100"/>
+                                <DataGridTextColumn Header="Saturday" Binding="{Binding Saturday}" Width="SizeToCells" MinWidth="100"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
