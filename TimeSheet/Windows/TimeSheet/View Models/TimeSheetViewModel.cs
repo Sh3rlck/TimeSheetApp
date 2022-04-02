@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -21,6 +22,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private string _lastActivity = "No activity registered";
         private int _numWeek;
         private int _numYear;
+        private ObservableCollection<Week> _weekTimeStamps = new ObservableCollection<Week>();
 
         public int NumWeek
         {
@@ -34,9 +36,11 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             set => Set(ref _numYear, value);
         }
 
-        public ObservableCollection<Week> WeekTimeStamps { get; private set; } = new ObservableCollection<Week>();
-
-        public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
+        public ObservableCollection<Week> WeekTimeStamps
+        {
+            get => _weekTimeStamps;
+            private set => Set(ref _weekTimeStamps, value);
+        }
 
         public ICommand PreviousWeekCommand => new RelayCommand(OnPreviousWeekCommand);
 
@@ -57,8 +61,45 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private void OnSearchCommand()
         {
             NavigationBar dateQuery = new NavigationBar(NumWeek, NumYear);
-            WeekTimeStamps = dateQuery.QueryDate();
+            IEnumerable<IGrouping<int, TimeLog>> groupedByWeek = dateQuery.QueryDate();
+
+            foreach (IGrouping<int, TimeLog> numWeek in groupedByWeek)
+            {
+                Week week = new Week();
+                foreach (var timeLog in numWeek)
+                {
+                    switch (timeLog.TimeStamp.DayOfWeek)
+                    {
+                        case DayOfWeek.Sunday:
+                            week.Sunday = timeLog;
+                            break;
+                        case DayOfWeek.Monday:
+                            week.Monday = timeLog;
+                            break;
+                        case DayOfWeek.Tuesday:
+                            week.Tuesday = timeLog;
+                            break;
+                        case DayOfWeek.Wednesday:
+                            week.Wednesday = timeLog;
+                            break;
+                        case DayOfWeek.Thursday:
+                            week.Thursday = timeLog;
+                            break;
+                        case DayOfWeek.Friday:
+                            week.Friday = timeLog;
+                            break;
+                        case DayOfWeek.Saturday:
+                            week.Saturday = timeLog;
+                            break;
+                        default:
+                            throw new Exception("invalid week day or timelog");
+                    }
+                }
+                WeekTimeStamps.Add(week);
+            }
         }
+
+        public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
 
         private void OnClockInCommand()
         {
@@ -69,7 +110,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Sunday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };
@@ -82,7 +123,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Monday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };
@@ -94,7 +135,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Tuesday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };
@@ -106,7 +147,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Wednesday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };
@@ -118,7 +159,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Thursday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };
@@ -130,7 +171,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Friday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };
@@ -142,7 +183,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
                     {
                         Saturday = new TimeLog
                         {
-                            TimeEntry = "Clock in",
+                            TimeEntries = TimeLog.TimeEntry.ClockIn,
                             TimeStamp = DateTime.Now
                         }
                     };

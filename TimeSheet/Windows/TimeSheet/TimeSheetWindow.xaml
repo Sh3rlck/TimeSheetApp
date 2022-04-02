@@ -6,9 +6,9 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
         mc:Ignorable="d"
-        SizeToContent="WidthAndHeight"
-        Background="Gainsboro" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-
+        SizeToContent="WidthAndHeight" 
+        Background="Gainsboro" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Title="Time Sheet">
+        
     <Window.DataContext>
         <viewModels:TimeSheetViewModel/>
     </Window.DataContext>
@@ -69,6 +69,19 @@
                     <GroupBox Grid.Row="1" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
                         <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" mah:ControlsHelper.ContentCharacterCasing="Normal">
                             <DataGrid.Columns>
+                                
+                                <!-- <DataGridTemplateColumn Width="SizeToCells" MinWidth="100"> -->
+                                <!--     <DataGridTemplateColumn.HeaderTemplate> -->
+                                <!--         <DataTemplate> -->
+                                <!--             <StackPanel Margin="0, 0, 0, 2"> -->
+                                <!--                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock> -->
+                                <!--                 <TextBlock Text="mm/dd/yyyy" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                <!--             </StackPanel> -->
+                                <!--         </DataTemplate> -->
+                                <!--     </DataGridTemplateColumn.HeaderTemplate> -->
+                                <!-- </DataGridTemplateColumn> -->
+
+                                <DataGridTextColumn Header="Sunday" Binding="{Binding Sunday}"  Width="SizeToCells" MinWidth="100"></DataGridTextColumn>
                                 <DataGridTextColumn Header="Monday" Binding="{Binding Monday}"  Width="SizeToCells" MinWidth="100"/>
                                 <DataGridTextColumn Header="Tuesday" Binding="{Binding Tuesday}" Width="SizeToCells" MinWidth="100"/>
                                 <DataGridTextColumn Header="Wednesday" Binding="{Binding Wednesday}" Width="SizeToCells" MinWidth="100"/>
