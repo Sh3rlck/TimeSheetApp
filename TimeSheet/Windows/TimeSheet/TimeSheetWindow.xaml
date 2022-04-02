@@ -56,8 +56,8 @@
                             <Button Margin="2, 0, 2, 0" Focusable="False" Command="{Binding PreviousWeekCommand}">
                                 <Image Source="../../Resources/Less than.png" Height="15" Width="15"></Image>
                             </Button>
-                            <TextBox mah:TextBoxHelper.Watermark="Week" Margin="0, 0, 1, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                            <TextBox mah:TextBoxHelper.Watermark="Year" Margin="1, 0, 0, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <TextBox Text="{Binding NumWeek}" mah:TextBoxHelper.Watermark="Week" Margin="0, 0, 1, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <TextBox Text="{Binding NumYear}" mah:TextBoxHelper.Watermark="Year" Margin="1, 0, 0, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                             <Button Margin="2, 0, 2, 0" Focusable="False" Command="{Binding SearchCommand}">
                                 <Image Source="../../Resources/Magnifying glass.png" Height="15" Width="15"></Image>
                             </Button>
@@ -67,7 +67,7 @@
                         </StackPanel>
                     </Grid>
                     <GroupBox Grid.Row="1" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False">
+                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" mah:ControlsHelper.ContentCharacterCasing="Normal">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Monday" Binding="{Binding Monday}"  Width="SizeToCells" MinWidth="100"/>
                                 <DataGridTextColumn Header="Tuesday" Binding="{Binding Tuesday}" Width="SizeToCells" MinWidth="100"/>

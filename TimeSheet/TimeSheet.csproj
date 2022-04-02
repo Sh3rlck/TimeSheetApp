@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\TimeSheet\Models\NavigationBar.cs" />
     <Compile Include="Windows\TimeSheet\Models\TimeLog.cs" />
     <Compile Include="Windows\TimeSheet\Models\Week.cs" />
     <Compile Include="Windows\TimeSheet\View Models\TimeSheetViewModel.cs" />

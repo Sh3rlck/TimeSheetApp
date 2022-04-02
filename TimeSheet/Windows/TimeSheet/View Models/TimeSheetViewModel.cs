@@ -19,8 +19,22 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
     public class TimeSheetViewModel : ViewModelBase
     {
         private string _lastActivity = "No activity registered";
+        private int _numWeek;
+        private int _numYear;
 
-        public ObservableCollection<Week> WeekTimeStamps { get; } = new ObservableCollection<Week>();
+        public int NumWeek
+        {
+            get => _numWeek;
+            set => Set(ref _numWeek, value);
+        }
+
+        public int  NumYear
+        {
+            get => _numYear;
+            set => Set(ref _numYear, value);
+        }
+
+        public ObservableCollection<Week> WeekTimeStamps { get; private set; } = new ObservableCollection<Week>();
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
 
@@ -38,11 +52,12 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             MessageBox.Show("Works");
         }
 
-        public ICommand SearchCommand => new RelayCommand(OnGoCommand);
+        public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
 
-        private void OnGoCommand()
+        private void OnSearchCommand()
         {
-            MessageBox.Show("Works");
+            NavigationBar dateQuery = new NavigationBar(NumWeek, NumYear);
+            WeekTimeStamps = dateQuery.QueryDate();
         }
 
         private void OnClockInCommand()
