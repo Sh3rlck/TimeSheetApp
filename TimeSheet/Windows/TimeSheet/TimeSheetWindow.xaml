@@ -50,6 +50,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height=".25*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="10">
                         <StackPanel Orientation="Horizontal">
@@ -66,16 +67,22 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <GroupBox Grid.Row="1" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" mah:ControlsHelper.ContentCharacterCasing="Normal">
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
+                        <TextBlock Text="Current Week: "  FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding FirstDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
+                        <TextBlock Text=" - "   FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding LastDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
+                    </StackPanel>
+                    <GroupBox Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
+                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" GridLinesVisibility="None" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
                             <DataGrid.Columns>
                                 
-                                <!-- <DataGridTemplateColumn Width="SizeToCells" MinWidth="100"> -->
+                                <!-- <DataGridTemplateColumn  Width="SizeToCells" MinWidth="100"> -->
                                 <!--     <DataGridTemplateColumn.HeaderTemplate> -->
                                 <!--         <DataTemplate> -->
                                 <!--             <StackPanel Margin="0, 0, 0, 2"> -->
                                 <!--                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock> -->
-                                <!--                 <TextBlock Text="mm/dd/yyyy" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                <!--                 <TextBlock  Text="{Binding WeekTimeStamps}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                 <!--             </StackPanel> -->
                                 <!--         </DataTemplate> -->
                                 <!--     </DataGridTemplateColumn.HeaderTemplate> -->

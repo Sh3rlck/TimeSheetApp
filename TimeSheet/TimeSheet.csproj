@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Classes\Extensions\Extensions.cs" />
     <Compile Include="Windows\TimeSheet\Models\NavigationBar.cs" />
     <Compile Include="Windows\TimeSheet\Models\TimeLog.cs" />
     <Compile Include="Windows\TimeSheet\Models\Week.cs" />
@@ -125,7 +126,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\" />
     <Folder Include="Windows\TimeSheet\Converter\" />
   </ItemGroup>
   <ItemGroup>
