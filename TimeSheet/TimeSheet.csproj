@@ -81,7 +81,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\Classes\Extensions\Extensions.cs" />
-    <Compile Include="Windows\TimeSheet\Models\NavigationBar.cs" />
+    <Compile Include="Windows\TimeSheet\Models\DataQuery.cs" />
     <Compile Include="Windows\TimeSheet\Models\TimeLog.cs" />
     <Compile Include="Windows\TimeSheet\Models\Week.cs" />
     <Compile Include="Windows\TimeSheet\View Models\TimeSheetViewModel.cs" />

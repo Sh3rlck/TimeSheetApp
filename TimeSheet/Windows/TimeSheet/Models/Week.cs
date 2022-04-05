@@ -26,5 +26,35 @@ namespace TimeSheet.Windows.TimeSheet.Models
             Calendar cal = new CultureInfo("en-US").Calendar;
             return cal.GetWeekOfYear(timeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
         }
+
+        public void SetWeekByGroup(TimeLog timeLog, Week weekStamp)
+        {
+            switch (timeLog.TimeStamp.DayOfWeek)
+            {
+                case DayOfWeek.Sunday:
+                    weekStamp.Sunday = timeLog;
+                    break;
+                case DayOfWeek.Monday:
+                    weekStamp.Monday = timeLog;
+                    break;
+                case DayOfWeek.Tuesday:
+                    weekStamp.Tuesday = timeLog;
+                    break;
+                case DayOfWeek.Wednesday:
+                    weekStamp.Wednesday = timeLog;
+                    break;
+                case DayOfWeek.Thursday:
+                    weekStamp.Thursday = timeLog;
+                    break;
+                case DayOfWeek.Friday:
+                    weekStamp.Friday = timeLog;
+                    break;
+                case DayOfWeek.Saturday:
+                    weekStamp.Saturday = timeLog;
+                    break;
+                default:
+                    throw new Exception("invalid week day or timelog");
+            }
+        }
     }
 }

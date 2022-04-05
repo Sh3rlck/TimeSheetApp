@@ -57,7 +57,6 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             set => Set(ref _numWeek, value);
         }
 
-
         public string NumYear
         {
             get => _numYear;
@@ -79,78 +78,26 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             if (!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
                 return;
 
-            NavigationBar dateQuery = new NavigationBar();
-            var sampleData = dateQuery.LoadSampleData();
+            DataQuery dataQuery = new DataQuery();
+            var sampleData = dataQuery.LoadSampleData();
 
-            var groupedByWeek = dateQuery.GroupDataByWeek(sampleData);
+            var timeLogsGroupedByWeek = dataQuery.GroupDataByWeek(sampleData);
 
-            foreach (var numWeek in groupedByWeek)
+            foreach (var timeLogsByWeek in timeLogsGroupedByWeek)
             {
-                if (numWeek.Key != int.Parse(NumWeek)) 
+                if (timeLogsByWeek.Key != int.Parse(NumWeek)) 
                     continue;
+
                 Week weekClockIns = new Week();
                 Week weekClockOuts = new Week();
-                foreach (var timeLog in numWeek)
+
+                foreach (var timeLog in timeLogsByWeek)
                 {
                     if (timeLog.TimeStamp.Year != int.Parse(NumYear))
                         continue;
-                    if (timeLog.TimeEntries == TimeLog.TimeEntry.ClockIn)
-                    {
-                        switch (timeLog.TimeStamp.DayOfWeek)
-                        {
-                            case DayOfWeek.Sunday:
-                                weekClockIns.Sunday = timeLog;
-                                break;
-                            case DayOfWeek.Monday:
-                                weekClockIns.Monday = timeLog;
-                                break;
-                            case DayOfWeek.Tuesday:
-                                weekClockIns.Tuesday = timeLog;
-                                break;
-                            case DayOfWeek.Wednesday:
-                                weekClockIns.Wednesday = timeLog;
-                                break;
-                            case DayOfWeek.Thursday:
-                                weekClockIns.Thursday = timeLog;
-                                break;
-                            case DayOfWeek.Friday:
-                                weekClockIns.Friday = timeLog;
-                                break;
-                            case DayOfWeek.Saturday:
-                                weekClockIns.Saturday = timeLog;
-                                break;
-                            default:
-                                throw new Exception("invalid week day or timelog");
-                        }
-                    } else
-                    {
-                        switch (timeLog.TimeStamp.DayOfWeek)
-                        {
-                            case DayOfWeek.Sunday:
-                                weekClockOuts.Sunday = timeLog;
-                                break;
-                            case DayOfWeek.Monday:
-                                weekClockOuts.Monday = timeLog;
-                                break;
-                            case DayOfWeek.Tuesday:
-                                weekClockOuts.Tuesday = timeLog;
-                                break;
-                            case DayOfWeek.Wednesday:
-                                weekClockOuts.Wednesday = timeLog;
-                                break;
-                            case DayOfWeek.Thursday:
-                                weekClockOuts.Thursday = timeLog;
-                                break;
-                            case DayOfWeek.Friday:
-                                weekClockOuts.Friday = timeLog;
-                                break;
-                            case DayOfWeek.Saturday:
-                                weekClockOuts.Saturday = timeLog;
-                                break;
-                            default:
-                                throw new Exception("invalid week day or timelog");
-                        }
-                    }
+
+                    weekClockIns.SetWeekByGroup(timeLog, timeLog.TimeEntries == TimeLog.TimeEntry.ClockIn 
+                                                        ? weekClockIns : weekClockOuts);
                 } 
                 WeekTimeStamps.Add(weekClockIns);
                 WeekTimeStamps.Add(weekClockOuts);

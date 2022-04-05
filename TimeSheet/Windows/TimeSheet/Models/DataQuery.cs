@@ -11,32 +11,16 @@ using System.Windows.Media.Animation;
 
 namespace TimeSheet.Windows.TimeSheet.Models
 {
-    public class NavigationBar
+    public class DataQuery
     {
         //public int CurrentWeek { get; set; }
 
         /// <summary>
-         /// Groups data from the week and year specified in the navigation bar
-         /// </summary>
-         /// <returns></returns>
-         public IEnumerable<IGrouping<bool, TimeLog>> GroupDataFromSelectedDate(ObservableCollection<TimeLog> data, int week, int year)
-         {
-             IEnumerable<IGrouping<bool, TimeLog>> groupBySpecificDate =
-                 from timeLog in data
-                 group timeLog by Week.GetWeekOfYear(timeLog.TimeStamp).Equals(week) && timeLog.TimeStamp.Year.Equals(year)
-                 into groupedBySpecificWeekAndYear
-                 orderby  groupedBySpecificWeekAndYear.Key
-                 select groupedBySpecificWeekAndYear;
-             
-             return groupBySpecificDate;
-         }
-
-         /// <summary>
          /// Groups raw time stamps by weeks of the year
          /// </summary>
          /// <param name="data"></param>
          /// <returns></returns>
-         public IEnumerable<IGrouping<int, TimeLog>> GroupDataByWeek(ObservableCollection<TimeLog> data)
+         public IEnumerable<IGrouping<int, TimeLog>> GroupDataByWeek(IEnumerable<TimeLog> data)
          {
 
              IEnumerable<IGrouping<int, TimeLog>> groupByWeek =
@@ -90,8 +74,19 @@ namespace TimeSheet.Windows.TimeSheet.Models
                  new TimeLog
                      {
                          TimeEntries = TimeLog.TimeEntry.ClockOut,
-                         TimeStamp = new DateTime(2022, 04, 03, 17, 0, 0)
+                         TimeStamp = new DateTime(2022, 04, 03, 12, 0, 0)
                      },
+                 new TimeLog
+                 {
+                     TimeEntries = TimeLog.TimeEntry.ClockIn, 
+                     TimeStamp = new DateTime(2022, 04, 03, 13, 0, 0)
+                 },
+                 
+                 new TimeLog
+                 {
+                     TimeEntries = TimeLog.TimeEntry.ClockOut,
+                     TimeStamp = new DateTime(2022, 04, 03, 17, 0, 0)
+                 },
 
                  new TimeLog
                      {
