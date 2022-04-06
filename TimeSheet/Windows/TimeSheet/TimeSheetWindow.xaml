@@ -57,9 +57,9 @@
                             <Button Margin="2, 0, 2, 0" Focusable="False" Command="{Binding PreviousWeekCommand}">
                                 <Image Source="../../Resources/Less than.png" Height="15" Width="15"></Image>
                             </Button>
-                            <TextBox Text="{Binding NumWeek}" mah:TextBoxHelper.Watermark="Week" Margin="0, 0, 1, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                            <TextBox Text="{Binding NumYear}" mah:TextBoxHelper.Watermark="Year" Margin="1, 0, 0, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                            <Button Margin="2, 0, 2, 0" Focusable="False" Command="{Binding SearchCommand}">
+                            <TextBox Text="{Binding NumWeek, UpdateSourceTrigger=PropertyChanged}" mah:TextBoxHelper.Watermark="Week" Margin="0, 0, 1, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <TextBox Text="{Binding NumYear, UpdateSourceTrigger=PropertyChanged}" mah:TextBoxHelper.Watermark="Year" Margin="1, 0, 0, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <Button Margin="2, 0, 2, 0"  Focusable="False"  Command="{Binding SearchCommand, UpdateSourceTrigger=PropertyChanged}">
                                 <Image Source="../../Resources/Magnifying glass.png" Height="15" Width="15"></Image>
                             </Button>
                             <Button Margin="0, 0, 2, 0" Focusable="False" Command="{Binding NextWeekCommand}">
@@ -68,33 +68,131 @@
                         </StackPanel>
                     </Grid>
                     <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
-                        <TextBlock Text="Current Week: "  FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
-                        <TextBlock Text="{Binding FirstDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
-                        <TextBlock Text=" - "   FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
-                        <TextBlock Text="{Binding LastDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="26" FontWeight="DemiBold"/>
+                        <TextBlock Text="Current Week: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding FirstDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
+                        <TextBlock Text=" - "   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding LastDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                     </StackPanel>
-                    <GroupBox Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" GridLinesVisibility="None" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                
-                                <!-- <DataGridTemplateColumn  Width="SizeToCells" MinWidth="100"> -->
-                                <!--     <DataGridTemplateColumn.HeaderTemplate> -->
-                                <!--         <DataTemplate> -->
-                                <!--             <StackPanel Margin="0, 0, 0, 2"> -->
-                                <!--                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock> -->
-                                <!--                 <TextBlock  Text="{Binding WeekTimeStamps}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
-                                <!--             </StackPanel> -->
-                                <!--         </DataTemplate> -->
-                                <!--     </DataGridTemplateColumn.HeaderTemplate> -->
-                                <!-- </DataGridTemplateColumn> -->
 
-                                <DataGridTextColumn Header="Sunday" Binding="{Binding Sunday}"  Width="SizeToCells" MinWidth="100"></DataGridTextColumn>
-                                <DataGridTextColumn Header="Monday" Binding="{Binding Monday}"  Width="SizeToCells" MinWidth="100"/>
-                                <DataGridTextColumn Header="Tuesday" Binding="{Binding Tuesday}" Width="SizeToCells" MinWidth="100"/>
-                                <DataGridTextColumn Header="Wednesday" Binding="{Binding Wednesday}" Width="SizeToCells" MinWidth="100"/>
-                                <DataGridTextColumn Header="Thursday" Binding="{Binding Thursday}"  Width="SizeToCells" MinWidth="100"/>
-                                <DataGridTextColumn Header="Friday" Binding="{Binding Friday}" Width="SizeToCells" MinWidth="100"/>
-                                <DataGridTextColumn Header="Saturday" Binding="{Binding Saturday}" Width="SizeToCells" MinWidth="100"/>
+                    <GroupBox Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
+                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" Focusable="False" >
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="IsSelected" Value="False"/>
+                                </Style>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Sunday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox  HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Sunday}" Focusable="False" IsHitTestVisible="True"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Monday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Monday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Monday}" Focusable="False"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Tuesday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Tuesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Tuesday}" Focusable="False"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Wednesday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Wednesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Wednesday}" Focusable="False"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Thursday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Thursday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Thursday}" Focusable="False"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Friday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Friday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Friday}" Focusable="False"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Saturday">
+                                    <DataGridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0, 0, 0, 2">
+                                                <TextBlock Text="Saturday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
+                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.HeaderTemplate>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Saturday}" Focusable="False"></ListBox>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>

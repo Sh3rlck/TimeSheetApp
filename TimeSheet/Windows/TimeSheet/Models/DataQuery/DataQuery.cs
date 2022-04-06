@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media.Animation;
+using TimeSheet.Windows.TimeSheet.Models.Calendar;
 
-namespace TimeSheet.Windows.TimeSheet.Models
+namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
 {
     public class DataQuery
     {

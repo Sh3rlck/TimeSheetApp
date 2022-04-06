@@ -14,6 +14,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using TimeSheet.Windows.TimeSheet.Models;
 using TimeSheet.Common.Classes.Extensions;
+using TimeSheet.Windows.TimeSheet.Models.Calendar;
+using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
 
 namespace TimeSheet.Windows.TimeSheet.View_Models
@@ -32,6 +34,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         private string _numWeek;
         private string _numYear;
+
+        public ObservableCollection<WeekDates> WeekDates = new ObservableCollection<WeekDates>();
 
         public DateTime FirstDateOfCurrentWeek
         {
@@ -69,38 +73,34 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             private set => Set(ref _weekTimeStamps, value);
         }
 
-        public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
+        public ICommand SearchCommand => new RelayCommand(OnSearchCommand, () => NumWeek.IsValidInt() && NumYear.IsValidInt());
 
         private void OnSearchCommand()
         {
             WeekTimeStamps = new ObservableCollection<Week>();
             WeekTimeStamps.Clear();
-            if (!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
-                return;
 
             DataQuery dataQuery = new DataQuery();
             var sampleData = dataQuery.LoadSampleData();
 
             var timeLogsGroupedByWeek = dataQuery.GroupDataByWeek(sampleData);
 
-            foreach (var timeLogsByWeek in timeLogsGroupedByWeek)
+            foreach (var weekGroups in timeLogsGroupedByWeek)
             {
-                if (timeLogsByWeek.Key != int.Parse(NumWeek)) 
+                if (weekGroups.Key != int.Parse(NumWeek)) 
                     continue;
 
-                Week weekClockIns = new Week();
-                Week weekClockOuts = new Week();
+                Week week = new Week();
 
-                foreach (var timeLog in timeLogsByWeek)
+                foreach (var timeLog in weekGroups)
                 {
                     if (timeLog.TimeStamp.Year != int.Parse(NumYear))
                         continue;
 
-                    weekClockIns.SetWeekByGroup(timeLog, timeLog.TimeEntries == TimeLog.TimeEntry.ClockIn 
-                                                        ? weekClockIns : weekClockOuts);
+                    week.AddTimeLogByDay(week, timeLog);
+                    
                 } 
-                WeekTimeStamps.Add(weekClockIns);
-                WeekTimeStamps.Add(weekClockOuts);
+                WeekTimeStamps.Add(week);
             }
         }
 
