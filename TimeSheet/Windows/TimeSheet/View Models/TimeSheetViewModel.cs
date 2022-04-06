@@ -65,6 +65,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             get => _numYear;
             set => Set(ref _numYear, value);
+            
         }
 
         public ObservableCollection<Week> WeekTimeStamps
@@ -73,10 +74,13 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             private set => Set(ref _weekTimeStamps, value);
         }
 
-        public ICommand SearchCommand => new RelayCommand(OnSearchCommand, () => NumWeek.IsValidInt() && NumYear.IsValidInt());
+        public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
 
         private void OnSearchCommand()
         {
+            if(!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
+                return;
+
             WeekTimeStamps = new ObservableCollection<Week>();
             WeekTimeStamps.Clear();
 

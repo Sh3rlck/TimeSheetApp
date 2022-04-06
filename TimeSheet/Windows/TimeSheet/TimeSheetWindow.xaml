@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
+        xmlns:calendar="clr-namespace:TimeSheet.Windows.TimeSheet.Models.Calendar"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" 
         Background="Gainsboro" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Title="Time Sheet">
@@ -59,7 +60,7 @@
                             </Button>
                             <TextBox Text="{Binding NumWeek, UpdateSourceTrigger=PropertyChanged}" mah:TextBoxHelper.Watermark="Week" Margin="0, 0, 1, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                             <TextBox Text="{Binding NumYear, UpdateSourceTrigger=PropertyChanged}" mah:TextBoxHelper.Watermark="Year" Margin="1, 0, 0, 0" TextAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                            <Button Margin="2, 0, 2, 0"  Focusable="False"  Command="{Binding SearchCommand, UpdateSourceTrigger=PropertyChanged}">
+                            <Button Margin="2, 0, 2, 0"  Focusable="False"  Command="{Binding SearchCommand}">
                                 <Image Source="../../Resources/Magnifying glass.png" Height="15" Width="15"></Image>
                             </Button>
                             <Button Margin="0, 0, 2, 0" Focusable="False" Command="{Binding NextWeekCommand}">
@@ -92,7 +93,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox  HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Sunday}" Focusable="False" IsHitTestVisible="True"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -108,7 +109,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Monday}" Focusable="False"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -124,7 +125,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Tuesday}" Focusable="False"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -140,7 +141,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Wednesday}" Focusable="False"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -156,7 +157,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Thursday}" Focusable="False"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -172,7 +173,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Friday}" Focusable="False"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -188,7 +189,7 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Saturday}" Focusable="False"></ListBox>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>

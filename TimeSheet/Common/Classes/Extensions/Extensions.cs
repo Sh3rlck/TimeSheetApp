@@ -12,6 +12,7 @@ namespace TimeSheet.Common.Classes.Extensions
         {
             return int.TryParse(Convert.ToString(txt), System.Globalization.NumberStyles.Any, 
                 System.Globalization.NumberFormatInfo.InvariantInfo, out int _);
+            
         }
     }
 }

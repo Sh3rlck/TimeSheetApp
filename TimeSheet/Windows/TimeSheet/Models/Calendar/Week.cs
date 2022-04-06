@@ -10,7 +10,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         public ObservableCollection<TimeLog> Sunday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Monday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Tuesday { get; } = new ObservableCollection<TimeLog>();
-        public ObservableCollection<TimeLog> Wednesday { get; } = new ObservableCollection<TimeLog>(); 
+        public ObservableCollection<TimeLog> Wednesday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Thursday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Friday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Saturday { get; } = new ObservableCollection<TimeLog>();
