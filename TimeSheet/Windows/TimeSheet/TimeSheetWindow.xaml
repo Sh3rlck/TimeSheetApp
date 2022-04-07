@@ -6,9 +6,10 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
         xmlns:calendar="clr-namespace:TimeSheet.Windows.TimeSheet.Models.Calendar"
+        xmlns:dataQuery="clr-namespace:TimeSheet.Windows.TimeSheet.Models.DataQuery"
         mc:Ignorable="d"
-        SizeToContent="WidthAndHeight" 
-        Background="Gainsboro" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" Title="Time Sheet">
+        Height="400" Width="900"
+        Background="Gainsboro" WindowStartupLocation="CenterScreen" Title="Time Sheet" ResizeMode="NoResize">
         
     <Window.DataContext>
         <viewModels:TimeSheetViewModel/>
@@ -50,7 +51,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height=".25*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.25*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="10">
@@ -68,7 +69,7 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock Text="Current Week: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                         <TextBlock Text="{Binding FirstDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                         <TextBlock Text=" - "   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
@@ -94,7 +95,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox  HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Sunday}" Focusable="False" IsHitTestVisible="True"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Sunday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -110,12 +111,12 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Monday}" Focusable="False"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Monday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Tuesday">
+                                <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="ClockOut">
                                     <DataGridTemplateColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
@@ -126,7 +127,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Tuesday}" Focusable="False"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Tuesday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -142,7 +143,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Wednesday}" Focusable="False"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Wednesday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -158,7 +159,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Thursday}" Focusable="False"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Thursday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -174,7 +175,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Friday}" Focusable="False"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Friday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -190,7 +191,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <ListBox HorizontalContentAlignment="Left" Margin="2" ItemsSource="{Binding Saturday}" Focusable="False"></ListBox>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Saturday}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

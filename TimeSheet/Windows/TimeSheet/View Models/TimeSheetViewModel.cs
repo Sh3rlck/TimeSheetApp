@@ -24,7 +24,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
     public class TimeSheetViewModel : ViewModelBase
     {
         private string _lastActivity = "No activity registered";
-        private ObservableCollection<Week> _weekTimeStamps;
+        private ObservableCollection<Week> _weekTimeStamps = new ObservableCollection<Week>();
         private DateTime _firstDateOfCurrentWeek = DateTime.Today.AddDays(
             (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
             (int) DateTime.Today.DayOfWeek);
@@ -35,6 +35,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private string _numWeek;
         private string _numYear;
 
+        public bool IsListItemSelected { get; set; } 
         public ObservableCollection<WeekDates> WeekDates = new ObservableCollection<WeekDates>();
 
         public DateTime FirstDateOfCurrentWeek
@@ -81,31 +82,15 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             if(!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
                 return;
 
-            WeekTimeStamps = new ObservableCollection<Week>();
-            WeekTimeStamps.Clear();
-
             DataQuery dataQuery = new DataQuery();
             var sampleData = dataQuery.LoadSampleData();
 
             var timeLogsGroupedByWeek = dataQuery.GroupDataByWeek(sampleData);
 
-            foreach (var weekGroups in timeLogsGroupedByWeek)
-            {
-                if (weekGroups.Key != int.Parse(NumWeek)) 
-                    continue;
+            var weekTimeStamps = dataQuery.GetWeekTimeStamps(timeLogsGroupedByWeek, NumWeek, NumYear);
 
-                Week week = new Week();
-
-                foreach (var timeLog in weekGroups)
-                {
-                    if (timeLog.TimeStamp.Year != int.Parse(NumYear))
-                        continue;
-
-                    week.AddTimeLogByDay(week, timeLog);
-                    
-                } 
-                WeekTimeStamps.Add(week);
-            }
+            WeekTimeStamps.Add(weekTimeStamps);
+            
         }
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);

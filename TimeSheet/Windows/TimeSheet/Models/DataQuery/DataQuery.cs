@@ -30,7 +30,35 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
 
          }
 
-         /// <summary>
+        /// <summary>
+        /// Returns a Week object with the time stamp information of the week and year specified
+        /// </summary>
+        /// <param name="group">Data grouped by week number</param>
+        /// <param name="numWeek">week to pull records from</param>
+        /// <param name="numYear">year to pull records from</param>
+        /// <returns></returns>
+        public Week GetWeekTimeStamps(IEnumerable<IGrouping<int, TimeLog>> group, string numWeek, string numYear)
+        {
+            Week week = new Week();
+
+            foreach (var weekGroups in group)
+            {
+                if (weekGroups.Key != int.Parse(numWeek))
+                    continue;
+
+                foreach (var timeLog in weekGroups)
+                {
+                    if (timeLog.TimeStamp.Year != int.Parse(numYear))
+                        continue;
+
+                    week.AddTimeLogByDay(week, timeLog);
+                }
+            }
+
+            return week;
+        }
+
+        /// <summary>
          /// Sample data for testing purposes
          /// </summary>
          /// <returns></returns>
