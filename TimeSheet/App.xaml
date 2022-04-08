@@ -7,8 +7,8 @@
         <ResourceDictionary>
 
                 <Style TargetType="DataGridCell" BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 </Style>
 
             <ResourceDictionary.MergedDictionaries>
