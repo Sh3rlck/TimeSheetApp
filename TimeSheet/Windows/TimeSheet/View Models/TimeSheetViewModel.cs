@@ -35,9 +35,6 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private string _numWeek;
         private string _numYear;
 
-        public bool IsListItemSelected { get; set; } 
-        public ObservableCollection<WeekDates> WeekDates = new ObservableCollection<WeekDates>();
-
         public DateTime FirstDateOfCurrentWeek
         {
             get => _firstDateOfCurrentWeek;
@@ -75,22 +72,66 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             private set => Set(ref _weekTimeStamps, value);
         }
 
+        public ICommand LoadCommand => new RelayCommand(OnLoadCommand);
+
+        private void OnLoadCommand()
+        {
+            DataQuery currentWeekData = new DataQuery();
+
+            currentWeekData.LoadSampleData();
+
+            var timeLogsGroupedByWeek = currentWeekData.GroupDataByWeek(DataQuery.Data);
+
+            var currentWeekTimeStamps = currentWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
+           
+            WeekTimeStamps.Add(currentWeekTimeStamps);
+        }
+
         public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
 
         private void OnSearchCommand()
         {
+            WeekTimeStamps.Clear();
             if(!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
                 return;
 
-            DataQuery dataQuery = new DataQuery();
-            var sampleData = dataQuery.LoadSampleData();
+            DataQuery dataFromSearchedWeek = new DataQuery();
 
-            var timeLogsGroupedByWeek = dataQuery.GroupDataByWeek(sampleData);
+            var timeLogsGroupedByWeek = dataFromSearchedWeek.GroupDataByWeek(DataQuery.Data);
 
-            var weekTimeStamps = dataQuery.GetWeekTimeStamps(timeLogsGroupedByWeek, NumWeek, NumYear);
+            var searchedWeekTimeStamps = dataFromSearchedWeek.GetWeekTimeLogs(timeLogsGroupedByWeek, int.Parse(NumWeek), int.Parse(NumYear));
 
-            WeekTimeStamps.Add(weekTimeStamps);
+            WeekTimeStamps.Add(searchedWeekTimeStamps);
             
+        }
+
+        public ICommand PreviousWeekCommand => new RelayCommand(OnPreviousWeekCommand);
+
+        private void OnPreviousWeekCommand()
+        {
+            WeekTimeStamps.Clear();
+            DataQuery previousWeekData = new DataQuery();
+            DataQuery.CurrentWeek -= 1;
+            var timeLogsGroupedByWeek = previousWeekData.GroupDataByWeek(DataQuery.Data);
+
+            var previousWeekTimeStamps = previousWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
+            
+            WeekTimeStamps.Add(previousWeekTimeStamps);
+        }
+        
+        public ICommand NextWeekCommand => new RelayCommand(OnNextWeekCommand);
+
+        private void OnNextWeekCommand()
+        {
+            WeekTimeStamps.Clear();
+            DataQuery nextWeekData = new DataQuery();
+            DataQuery.CurrentWeek += 1;
+
+            var timeLogsGroupedByWeek = nextWeekData.GroupDataByWeek(DataQuery.Data);
+
+            var nextWeekTimeStamps = nextWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek , DateTime.Now.Year);
+            
+            WeekTimeStamps.Add(nextWeekTimeStamps);
         }
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
@@ -105,22 +146,6 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private void OnClockOutCommand()
         {
             MessageBox.Show("Works");
-        }
-
-        public ICommand PreviousWeekCommand => new RelayCommand(OnPreviousWeekCommand);
-
-        private void OnPreviousWeekCommand()
-        {
-            FirstDateOfCurrentWeek = _firstDateOfCurrentWeek.AddDays(-7);
-            LastDateOfCurrentWeek = _lastDateOfCurrentWeek.AddDays(-7);
-        }
-
-        public ICommand NextWeekCommand => new RelayCommand(OnNextWeekCommand);
-
-        private void OnNextWeekCommand()
-        {
-            FirstDateOfCurrentWeek = _firstDateOfCurrentWeek.AddDays(7);
-            LastDateOfCurrentWeek = _lastDateOfCurrentWeek.AddDays(7);
         }
     }
 }

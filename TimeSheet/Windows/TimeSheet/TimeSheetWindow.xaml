@@ -6,15 +6,22 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
         xmlns:calendar="clr-namespace:TimeSheet.Windows.TimeSheet.Models.Calendar"
-        xmlns:dataQuery="clr-namespace:TimeSheet.Windows.TimeSheet.Models.DataQuery"
+                 xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Height="400" Width="900"
         Background="Gainsboro" WindowStartupLocation="CenterScreen" Title="Time Sheet" ResizeMode="NoResize">
-        
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding LoadCommand}"/>
+        </b:EventTrigger>
+
+    </b:Interaction.Triggers>   
     <Window.DataContext>
         <viewModels:TimeSheetViewModel/>
     </Window.DataContext>
 
+       
 <Window.Resources>
     <Style BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
@@ -96,7 +103,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
                                             <Grid>
-                                                <DataGrid IsHitTestVisible="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Sunday}"></DataGrid>
+                                                <DataGrid IsHitTestVisible="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Sunday}" GridLinesVisibility="All"></DataGrid>
                                             </Grid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -111,11 +118,6 @@
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
-                                    <DataGridTemplateColumn.CellStyle>
-                                        <Style TargetType="DataGridCell" BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
-                                            <Setter Property="VerticalAlignment" Value="Top"/>
-                                        </Style>
-                                    </DataGridTemplateColumn.CellStyle>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
                                             <Grid>

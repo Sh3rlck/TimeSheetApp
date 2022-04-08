@@ -9,9 +9,5 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         public TimeEntry TimeEntries { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        public override string ToString()
-        {
-            return TimeEntries + " at " + TimeStamp;
-        }
     }
 }

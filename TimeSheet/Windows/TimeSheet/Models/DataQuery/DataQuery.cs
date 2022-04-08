@@ -8,7 +8,8 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
 {
     public class DataQuery
     {
-        //public int CurrentWeek { get; set; }
+        public static ObservableCollection<TimeLog> Data { get; set; }
+        public static int CurrentWeek { get; set; } = Week.GetWeekOfYear(DateTime.Today);
 
         /// <summary>
          /// Groups raw time stamps by weeks of the year
@@ -37,24 +38,23 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         /// <param name="numWeek">week to pull records from</param>
         /// <param name="numYear">year to pull records from</param>
         /// <returns></returns>
-        public Week GetWeekTimeStamps(IEnumerable<IGrouping<int, TimeLog>> group, string numWeek, string numYear)
+        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, TimeLog>> group, int numWeek, int numYear)
         {
             Week week = new Week();
 
             foreach (var weekGroups in group)
             {
-                if (weekGroups.Key != int.Parse(numWeek))
+                if (weekGroups.Key != numWeek)
                     continue;
 
                 foreach (var timeLog in weekGroups)
                 {
-                    if (timeLog.TimeStamp.Year != int.Parse(numYear))
+                    if (timeLog.TimeStamp.Year != numYear)
                         continue;
 
                     week.AddTimeLogByDay(week, timeLog);
                 }
             }
-
             return week;
         }
 
@@ -62,9 +62,9 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
          /// Sample data for testing purposes
          /// </summary>
          /// <returns></returns>
-         public ObservableCollection<TimeLog> LoadSampleData()
+         public void LoadSampleData()
          {
-             return new ObservableCollection<TimeLog>
+             Data = new ObservableCollection<TimeLog>
              {
                  new TimeLog
                  {

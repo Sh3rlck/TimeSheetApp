@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using MahApps.Metro.Controls;
 using TimeSheet.Windows.TimeSheet.Models;
+using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
 namespace TimeSheet.Windows.TimeSheet
 {
@@ -14,7 +15,7 @@ namespace TimeSheet.Windows.TimeSheet
         public TimeSheetWindow()
         {
             InitializeComponent();
-
+            
         }
     }
 }
