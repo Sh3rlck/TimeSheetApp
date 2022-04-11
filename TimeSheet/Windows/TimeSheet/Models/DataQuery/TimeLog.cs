@@ -9,5 +9,12 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         public TimeEntry TimeEntries { get; set; }
         public DateTime TimeStamp { get; set; }
 
+        public TimeLog() {}
+
+        public TimeLog(TimeEntry timeEntry, DateTime timeStamp)
+        {
+            TimeEntries = timeEntry;
+            TimeStamp = timeStamp;
+        }
     }
 }

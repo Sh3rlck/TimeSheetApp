@@ -84,7 +84,7 @@
                     </StackPanel>
 
                     <GroupBox Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="false" Focusable="False"  >
+                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeStamps}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="false" Focusable="False" EnableColumnVirtualization="False" EnableRowVirtualization="false" >
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="IsSelected" Value="False"/>
@@ -96,7 +96,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -114,7 +114,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Monday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -132,7 +132,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Tuesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -148,7 +148,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Wednesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -164,7 +164,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Thursday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -180,7 +180,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Friday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -196,7 +196,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Saturday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDates}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>

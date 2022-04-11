@@ -10,9 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using TimeSheet.Windows.TimeSheet.Models;
+
 using TimeSheet.Common.Classes.Extensions;
 using TimeSheet.Windows.TimeSheet.Models.Calendar;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
@@ -38,13 +39,13 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         public DateTime FirstDateOfCurrentWeek
         {
             get => _firstDateOfCurrentWeek;
-            set => Set(ref _firstDateOfCurrentWeek, value);
+            private set => Set(ref _firstDateOfCurrentWeek, value);
         }
 
         public DateTime LastDateOfCurrentWeek
         {
             get => _lastDateOfCurrentWeek;
-            set => Set(ref _lastDateOfCurrentWeek, value);
+            private set => Set(ref _lastDateOfCurrentWeek, value);
         }
 
         public string LastActivity
@@ -91,9 +92,10 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         private void OnSearchCommand()
         {
-            WeekTimeStamps.Clear();
             if(!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
                 return;
+
+            WeekTimeStamps.Clear();
 
             DataQuery dataFromSearchedWeek = new DataQuery();
 
@@ -117,6 +119,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             var previousWeekTimeStamps = previousWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
             
             WeekTimeStamps.Add(previousWeekTimeStamps);
+            FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(-7);
+            LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(-7);
         }
         
         public ICommand NextWeekCommand => new RelayCommand(OnNextWeekCommand);
@@ -132,20 +136,30 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             var nextWeekTimeStamps = nextWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek , DateTime.Now.Year);
             
             WeekTimeStamps.Add(nextWeekTimeStamps);
+            FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(7);
+            LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(7);
         }
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
 
         private void OnClockInCommand()
         {
-            MessageBox.Show("Works");
+            var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockIn, DateTime.Now);
+            Week week = new Week();
+            week.AddTimeLogByDay(week, todayTimeStamp);
+            WeekTimeStamps.Add(week);
+            LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
 
         public ICommand ClockOutCommand => new RelayCommand(OnClockOutCommand);
 
         private void OnClockOutCommand()
         {
-            MessageBox.Show("Works");
+            var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockOut, DateTime.Now);
+            Week week = new Week();
+            week.AddTimeLogByDay(week, todayTimeStamp);
+            WeekTimeStamps.Add(week);
+            LastActivity = "Clocked out at " + todayTimeStamp.TimeStamp;
         }
     }
 }

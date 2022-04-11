@@ -14,6 +14,8 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         public ObservableCollection<TimeLog> Thursday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Friday { get; } = new ObservableCollection<TimeLog>();
         public ObservableCollection<TimeLog> Saturday { get; } = new ObservableCollection<TimeLog>();
+        public ObservableCollection<DateTime> DateRange { get; set; } = new ObservableCollection<DateTime>();
+
 
         /// <summary>
         /// Returns the week number that the time stamp falls into

@@ -81,7 +81,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\Classes\Extensions\Extensions.cs" />
-    <Compile Include="Windows\TimeSheet\Models\Calendar\WeekDates.cs" />
     <Compile Include="Windows\TimeSheet\Models\DataQuery\DataQuery.cs" />
     <Compile Include="Windows\TimeSheet\Models\DataQuery\TimeLog.cs" />
     <Compile Include="Windows\TimeSheet\Models\Calendar\Week.cs" />
