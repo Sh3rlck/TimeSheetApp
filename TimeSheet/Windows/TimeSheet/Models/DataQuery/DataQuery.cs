@@ -9,7 +9,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
     public class DataQuery
     {
         public static ObservableCollection<TimeLog> Data { get; set; }
-        public static int CurrentWeek { get; set; } = Week.GetWeekOfYear(DateTime.Today);
+        public static int CurrentWeek { get; set; } = Weeks.GetWeekOfYear(DateTime.Today);
 
         /// <summary>
          /// Groups raw time stamps by weeks of the year
@@ -21,7 +21,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
 
              IEnumerable<IGrouping<int, TimeLog>> groupByWeek =
                  from timelog in data
-                 group timelog by Week.GetWeekOfYear(timelog.TimeStamp)
+                 group timelog by Weeks.GetWeekOfYear(timelog.TimeStamp)
                  into groupedByWeek
                  orderby groupedByWeek.Key
                  select groupedByWeek;
@@ -38,9 +38,9 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         /// <param name="numWeek">week to pull records from</param>
         /// <param name="numYear">year to pull records from</param>
         /// <returns></returns>
-        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, TimeLog>> group, int numWeek, int numYear)
+        public Weeks GetWeekTimeLogs(IEnumerable<IGrouping<int, TimeLog>> group, int numWeek, int numYear)
         {
-            Week week = new Week();
+            Weeks week = new Weeks();
 
             foreach (var weekGroups in group)
             {
