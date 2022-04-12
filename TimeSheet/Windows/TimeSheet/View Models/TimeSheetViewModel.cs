@@ -25,7 +25,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
     public class TimeSheetViewModel : ViewModelBase
     {
         private string _lastActivity = "No activity registered";
-        private ObservableCollection<Weeks> _weekTimeStamps = new ObservableCollection<Weeks>();
+        private ObservableCollection<Week> _weekTimeStamps = new ObservableCollection<Week>();
         private DateTime _firstDateOfCurrentWeek = DateTime.Today.AddDays(
             (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
             (int) DateTime.Today.DayOfWeek);
@@ -67,7 +67,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             
         }
 
-        public ObservableCollection<Weeks> WeekTimeStamps
+        public ObservableCollection<Week> WeekTimeStamps
         {
             get => _weekTimeStamps;
             private set => Set(ref _weekTimeStamps, value);
@@ -145,7 +145,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private void OnClockInCommand()
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockIn, DateTime.Now);
-            Weeks week = new Weeks();
+            Week week = new Week();
             week.AddTimeLogByDay(week, todayTimeStamp);
             WeekTimeStamps.Add(week);
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
@@ -156,7 +156,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private void OnClockOutCommand()
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockOut, DateTime.Now);
-            Weeks week = new Weeks();
+            Week week = new Week();
             week.AddTimeLogByDay(week, todayTimeStamp);
             WeekTimeStamps.Add(week);
             LastActivity = "Clocked out at " + todayTimeStamp.TimeStamp;
