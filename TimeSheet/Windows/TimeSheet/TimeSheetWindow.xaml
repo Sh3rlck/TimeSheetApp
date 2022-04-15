@@ -93,17 +93,17 @@
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Width="SizeToCells" MinWidth="120" SortMemberPath="Sunday">
                                     <DataGridTemplateColumn.HeaderTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="calendar:Week">
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <!-- <TextBlock  Text="{Binding WeekDays[0].DayDate}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
                                             <Grid>
-                                                <DataGrid IsHitTestVisible="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Sunday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                                <DataGrid IsHitTestVisible="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                             </Grid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -121,7 +121,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
                                             <Grid>
-                                                <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Monday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                                <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding  WeekDays[1].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                             </Grid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -138,7 +138,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Tuesday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[2].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -154,7 +154,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Wednesday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[3].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -170,7 +170,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Thursday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[4].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -186,7 +186,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Friday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[5].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -202,7 +202,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding Saturday}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[6].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

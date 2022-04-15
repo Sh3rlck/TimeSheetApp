@@ -81,10 +81,10 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             currentWeekData.LoadSampleData();
 
-            var timeLogsGroupedByWeek = currentWeekData.GroupDataByWeek(DataQuery.Data);
+            var timeLogsGroupedByWeek = currentWeekData.GroupDataByWeekAndDay(DataQuery.Data);
 
             var currentWeekTimeStamps = currentWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
-           
+
             WeekTimeStamps.Add(currentWeekTimeStamps);
         }
 
@@ -99,7 +99,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             DataQuery dataFromSearchedWeek = new DataQuery();
 
-            var timeLogsGroupedByWeek = dataFromSearchedWeek.GroupDataByWeek(DataQuery.Data);
+            var timeLogsGroupedByWeek = dataFromSearchedWeek.GroupDataByWeekAndDay(DataQuery.Data);
 
             var searchedWeekTimeStamps = dataFromSearchedWeek.GetWeekTimeLogs(timeLogsGroupedByWeek, int.Parse(NumWeek), int.Parse(NumYear));
 
@@ -114,8 +114,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             WeekTimeStamps.Clear();
             DataQuery previousWeekData = new DataQuery();
             DataQuery.CurrentWeek -= 1;
-            var timeLogsGroupedByWeek = previousWeekData.GroupDataByWeek(DataQuery.Data);
-
+            var timeLogsGroupedByWeek = previousWeekData.GroupDataByWeekAndDay(DataQuery.Data);
+            
             var previousWeekTimeStamps = previousWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
             
             WeekTimeStamps.Add(previousWeekTimeStamps);
@@ -131,9 +131,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             DataQuery nextWeekData = new DataQuery();
             DataQuery.CurrentWeek += 1;
 
-            var timeLogsGroupedByWeek = nextWeekData.GroupDataByWeek(DataQuery.Data);
-
-            var nextWeekTimeStamps = nextWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek , DateTime.Now.Year);
+            var timeLogsGroupedByWeek = nextWeekData.GroupDataByWeekAndDay(DataQuery.Data);
+            
+            var nextWeekTimeStamps = nextWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
             
             WeekTimeStamps.Add(nextWeekTimeStamps);
             FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(7);
@@ -146,7 +146,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockIn, DateTime.Now);
             Week week = new Week();
-            week.AddTimeLogByDay(week, todayTimeStamp);
+           // week.AddTimeLogByDay(week, todayTimeStamp);
             WeekTimeStamps.Add(week);
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
@@ -157,7 +157,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockOut, DateTime.Now);
             Week week = new Week();
-            week.AddTimeLogByDay(week, todayTimeStamp);
+          //  week.AddTimeLogByDay(week, todayTimeStamp);
             WeekTimeStamps.Add(week);
             LastActivity = "Clocked out at " + todayTimeStamp.TimeStamp;
         }

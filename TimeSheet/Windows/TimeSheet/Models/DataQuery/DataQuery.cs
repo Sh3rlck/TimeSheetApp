@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Windows.Controls;
+using MahApps.Metro.Controls;
 using TimeSheet.Windows.TimeSheet.Models.Calendar;
 
 namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
@@ -16,43 +20,47 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
          /// </summary>
          /// <param name="data"></param>
          /// <returns></returns>
-         public IEnumerable<IGrouping<int, TimeLog>> GroupDataByWeek(IEnumerable<TimeLog> data)
-         {
-
-             IEnumerable<IGrouping<int, TimeLog>> groupByWeek =
-                 from timelog in data
-                 group timelog by Week.GetWeekOfYear(timelog.TimeStamp)
-                 into groupedByWeek
-                 orderby groupedByWeek.Key
-                 select groupedByWeek;
-
+         public IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> GroupDataByWeekAndDay(IEnumerable<TimeLog> data)
+        {
+            IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupByWeek =
+                from timelog in data
+                group timelog by Week.GetWeekOfYear(timelog.TimeStamp)
+                into groupedByWeek
+                from groupedByDay in (
+                    from timelogs in groupedByWeek
+                    group timelogs by timelogs.TimeStamp.DayOfWeek)
+                group groupedByDay by groupedByWeek.Key;
+            
              //pull info from data base 
              return groupByWeek;
-
          }
 
         /// <summary>
         /// Returns a Week object with the time stamp information of the week and year specified
         /// </summary>
-        /// <param name="group">Data grouped by week number</param>
-        /// <param name="numWeek">week to pull records from</param>
-        /// <param name="numYear">year to pull records from</param>
+        /// <param name="groupedData">Data grouped by week number</param>
+        /// <param name="numWeek">Week of the year</param>
+        /// <param name="year">year</param>
         /// <returns></returns>
-        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, TimeLog>> group, int numWeek, int numYear)
+        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
         {
             Week week = new Week();
 
-            foreach (var weekGroups in group)
+            foreach (var weekGroups in groupedData)
             {
-                if (weekGroups.Key != numWeek)
+                if(weekGroups.Key != numWeek)
                     continue;
 
-                foreach (var timeLog in weekGroups)
+                foreach (IGrouping<DayOfWeek, TimeLog> dayGroups in weekGroups)
                 {
-                    if (timeLog.TimeStamp.Year != numYear)
-                        continue;
-
-                    week.AddTimeLogByDay(week, timeLog);
+                    Day day = new Day();
+                    foreach (TimeLog timeLog in dayGroups)
+                    {
+                        if(timeLog.TimeStamp.Year != numYear)
+                            continue;
+                        day.AddTimeLog(timeLog);
+                    }
+                    week.WeekDays.Add(day);
                 }
             }
             return week;

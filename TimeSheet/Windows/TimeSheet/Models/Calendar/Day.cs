@@ -10,12 +10,20 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
 {
     public class Day
     {
-        public ObservableCollection<TimeLog> TimeLogs { get; set; }
-        public DayOfWeek DateDayOfWeek { get; set; }
+        public ObservableCollection<TimeLog> TimeLogs { get; set; } = new ObservableCollection<TimeLog>();
+        public DateTime DayDate { get; set; } 
+
+        public Day() {}
 
         public Day(DateTime date)
         {
-            DateDayOfWeek = date.DayOfWeek;
+            DayDate = date;
+        }
+
+        public void AddTimeLog(TimeLog timeLog)
+        {
+            TimeLogs.Add(timeLog);
+            DayDate = timeLog.TimeStamp;
         }
     }
 }
