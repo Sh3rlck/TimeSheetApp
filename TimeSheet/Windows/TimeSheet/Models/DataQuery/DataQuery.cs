@@ -40,12 +40,12 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         /// </summary>
         /// <param name="groupedData">Data grouped by week number</param>
         /// <param name="numWeek">Week of the year</param>
-        /// <param name="year">year</param>
+        /// <param name="numYear"></param>
         /// <returns></returns>
         public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
         {
             Week week = new Week();
-
+            Week weekTest = new Week();
             foreach (var weekGroups in groupedData)
             {
                 if(weekGroups.Key != numWeek)
@@ -60,6 +60,8 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                             continue;
                         day.AddTimeLog(timeLog);
                     }
+
+                    weekTest.WeekDaysTest[day.DayDate.DayOfWeek] = day;
                     week.WeekDays.Add(day);
                 }
             }
