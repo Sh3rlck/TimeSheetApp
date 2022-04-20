@@ -69,6 +69,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             
         }
 
+
         public ObservableCollection<Week> WeekTimeStamps
         {
             get => _weekTimeStamps;

@@ -65,7 +65,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                     week.WeekDays.Add(day);
                 }
             }
-            return week;
+            return weekTest;
         }
 
         /// <summary>

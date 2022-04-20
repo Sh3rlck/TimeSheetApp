@@ -102,9 +102,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <Grid>
-                                                <DataGrid IsHitTestVisible="True" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDaysTest[DayOfWeek.Sunday].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
-                                            </Grid>
+                                           <DataGrid ItemsSource="{Binding WeekDaysTest[DayOfWeek.Sunday].TimeLogs}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

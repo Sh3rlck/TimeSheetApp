@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
 namespace TimeSheet.Windows.TimeSheet.Models.Calendar
@@ -18,8 +19,8 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// 6 -> Saturday
         /// </summary>
         public ObservableCollection<Day> WeekDays { get; set; } = new ObservableCollection<Day>();
-
-        public Dictionary<DayOfWeek, Day> WeekDaysTest { get; set; } = new Dictionary<DayOfWeek, Day>
+        
+        public ObservableDictionary<DayOfWeek, Day> WeekDaysTest { get; set; } = new ObservableDictionary<DayOfWeek, Day>
         {
             {DayOfWeek.Sunday, new Day()},
             {DayOfWeek.Monday, new Day()},
@@ -29,6 +30,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
             {DayOfWeek.Friday, new Day()},
             {DayOfWeek.Saturday, new Day()}
         };
+
         /// <summary>
         /// Returns the week number that the time stamp falls into
         /// </summary>
