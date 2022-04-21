@@ -19,7 +19,9 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// 6 -> Saturday
         /// </summary>
         public ObservableCollection<Day> WeekDays { get; set; } = new ObservableCollection<Day>();
-        
+
+        public static int CurrentWeek { get; set; } = GetWeekOfYear(DateTime.Today);
+
         public ObservableDictionary<DayOfWeek, Day> WeekDaysTest { get; set; } = new ObservableDictionary<DayOfWeek, Day>
         {
             {DayOfWeek.Sunday, new Day()},
@@ -39,6 +41,17 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         {
             System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
             return cal.GetWeekOfYear(timeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+        }
+
+        /// <summary>
+        /// Returns the Date of the first day of the current week 
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime DateOfFirstWeekDay()
+        {
+            return  DateTime.Today.AddDays(
+                (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
+                (int) DateTime.Today.DayOfWeek);
         }
     }
 }

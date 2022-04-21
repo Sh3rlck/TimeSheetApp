@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
+using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.Calendar;
 
 namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
@@ -13,7 +14,6 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
     public class DataQuery
     {
         public static ObservableCollection<TimeLog> Data { get; set; }
-        public static int CurrentWeek { get; set; } = Week.GetWeekOfYear(DateTime.Today);
 
         /// <summary>
          /// Groups raw time stamps by Week of the year
@@ -45,7 +45,6 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
         {
             Week week = new Week();
-            Week weekTest = new Week();
             foreach (var weekGroups in groupedData)
             {
                 if(weekGroups.Key != numWeek)
@@ -60,12 +59,11 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                             continue;
                         day.AddTimeLog(timeLog);
                     }
-
-                    weekTest.WeekDaysTest[day.DayDate.DayOfWeek] = day;
+                    week.WeekDaysTest[day.DayDate.DayOfWeek] = day;
                     week.WeekDays.Add(day);
                 }
             }
-            return weekTest;
+            return week;
         }
 
         /// <summary>
