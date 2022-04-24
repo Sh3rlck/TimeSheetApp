@@ -89,9 +89,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
 
-            var currentWeekTimeLogs = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, Week.CurrentWeek, DateTime.Now.Year);
+            var currentWeek = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, Week.CurrentWeek, DateTime.Now.Year);
 
-            WeekTimeLogs.Add(currentWeekTimeLogs);
+            WeekTimeLogs.Add(currentWeek);
         }
 
         public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
@@ -111,7 +111,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             var searchedWeekTimeStamps = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, int.Parse(NumWeek), int.Parse(NumYear));
 
             WeekTimeLogs.Add(searchedWeekTimeStamps);
-            
+
+            NumWeek = "";
+            NumYear = "";
         }
 
         public ICommand PreviousWeekCommand => new RelayCommand(OnPreviousWeekCommand);
@@ -123,11 +125,11 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             WeekTimeLogs.Clear();
             Week.CurrentWeek -= 1;
-            var timeLogsGroupedByWeek = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
+            var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-            var previousWeekTimeStamps = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, Week.CurrentWeek, DateTime.Now.Year);
+            var previousWeekTimeLogs = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, Week.CurrentWeek, DateTime.Now.Year);
             
-            WeekTimeLogs.Add(previousWeekTimeStamps);
+            WeekTimeLogs.Add(previousWeekTimeLogs);
             FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(-7);
             LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(-7);
         }
@@ -142,11 +144,11 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             WeekTimeLogs.Clear();
             Week.CurrentWeek += 1;
 
-            var timeLogsGroupedByWeek = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
+            var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-            var nextWeekTimeStamps = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, Week.CurrentWeek, DateTime.Now.Year);
+            var nextWeekTimeLogs = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, Week.CurrentWeek, DateTime.Now.Year);
             
-            WeekTimeLogs.Add(nextWeekTimeStamps);
+            WeekTimeLogs.Add(nextWeekTimeLogs);
             FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(7);
             LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(7);
         }

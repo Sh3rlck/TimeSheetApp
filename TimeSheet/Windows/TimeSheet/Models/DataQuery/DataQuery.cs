@@ -45,6 +45,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
         {
             Week week = new Week();
+
             foreach (var weekGroups in groupedData)
             {
                 if(weekGroups.Key != numWeek)
@@ -59,13 +60,11 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                             continue;
                         day.AddTimeLog(timeLog);
                     }
-                    week.WeekDaysTest[day.DayDate.DayOfWeek] = day;
-                    week.WeekDays.Add(day);
+                    week.WeekDays.Insert((int)day.DayDate.DayOfWeek, day);
                 }
             }
             return week;
         }
-
         /// <summary>
          /// Sample data for testing purposes
          /// </summary>

@@ -18,20 +18,18 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// 5 -> Friday
         /// 6 -> Saturday
         /// </summary>
-        public ObservableCollection<Day> WeekDays { get; set; } = new ObservableCollection<Day>();
+        public ObservableCollection<Day> WeekDays { get; set; } = new ObservableCollection<Day>
+        {
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+        };
 
         public static int CurrentWeek { get; set; } = GetWeekOfYear(DateTime.Today);
-
-        public ObservableDictionary<DayOfWeek, Day> WeekDaysTest { get; set; } = new ObservableDictionary<DayOfWeek, Day>
-        {
-            {DayOfWeek.Sunday, new Day()},
-            {DayOfWeek.Monday, new Day()},
-            {DayOfWeek.Tuesday, new Day()},
-            {DayOfWeek.Wednesday, new Day()},
-            {DayOfWeek.Thursday, new Day()},
-            {DayOfWeek.Friday, new Day()},
-            {DayOfWeek.Saturday, new Day()}
-        };
 
         /// <summary>
         /// Returns the week number that the time stamp falls into
@@ -44,7 +42,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         }
 
         /// <summary>
-        /// Returns the Date of the first day of the current week 
+        /// Returns the Date of the first day of the week selected 
         /// </summary>
         /// <returns></returns>
         public static DateTime DateOfFirstWeekDay()
