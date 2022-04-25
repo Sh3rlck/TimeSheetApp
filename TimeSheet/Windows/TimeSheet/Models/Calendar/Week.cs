@@ -29,16 +29,17 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
             new Day(),
         };
 
-        public static int CurrentWeek { get; set; } = GetWeekOfYear(DateTime.Today);
+        public static int CurrentWeek { get; set; } = new Week().GetWeekOfYear(DateTime.Today);
 
         /// <summary>
         /// Returns the week number that the time stamp falls into
         /// </summary>
         /// <returns></returns>
-        public static int GetWeekOfYear(DateTime timeStamp)
+        public int GetWeekOfYear(DateTime timeStamp)
         {
             System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
             return cal.GetWeekOfYear(timeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+            
         }
 
         /// <summary>

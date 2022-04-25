@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
-using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.Calendar;
 
 namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
@@ -22,9 +21,10 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
          /// <returns></returns>
          public IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> GroupDataByWeekAndDay(IEnumerable<TimeLog> data)
         {
+            var week = new Week();
             IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupByWeek =
                 from timelog in data
-                group timelog by Week.GetWeekOfYear(timelog.TimeStamp)
+                group timelog by week.GetWeekOfYear(timelog.TimeStamp)
                 into groupedByWeek
                 from groupedByDay in (
                     from timelogs in groupedByWeek
@@ -39,16 +39,14 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         /// Returns a Week object with the time stamp information of the week and year specified
         /// </summary>
         /// <param name="groupedData">Data grouped by week number</param>
-        /// <param name="numWeek">Week of the year</param>
         /// <param name="numYear"></param>
         /// <returns></returns>
-        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
+        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numYear)
         {
             Week week = new Week();
-
             foreach (var weekGroups in groupedData)
             {
-                if(weekGroups.Key != numWeek)
+                if(weekGroups.Key != Week.CurrentWeek)
                     continue;
 
                 foreach (IGrouping<DayOfWeek, TimeLog> dayGroups in weekGroups)
@@ -60,10 +58,10 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                             continue;
                         day.AddTimeLog(timeLog);
                     }
-                    week.WeekDays.Insert((int)day.DayDate.DayOfWeek, day);
+                    week.WeekDays[(int)day.DayDate.DayOfWeek] = day;
                 }
             }
-            return week;
+            return week; 
         }
         /// <summary>
          /// Sample data for testing purposes

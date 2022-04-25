@@ -7,8 +7,9 @@
         xmlns:viewModels="clr-namespace:TimeSheet.Windows.TimeSheet.View_Models"
         xmlns:calendar="clr-namespace:TimeSheet.Windows.TimeSheet.Models.Calendar"
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"
-        Height="400" Width="900"
+                 xmlns:converter="clr-namespace:TimeSheet.Windows.TimeSheet.Converter"
+                 mc:Ignorable="d"
+        Height="420" Width="900"
         Background="Gainsboro" WindowStartupLocation="CenterScreen" Title="Time Sheet" ResizeMode="NoResize">
 
     <b:Interaction.Triggers>
@@ -21,12 +22,12 @@
         <viewModels:TimeSheetViewModel/>
     </Window.DataContext>
 
-       
-<Window.Resources>
+<mah:MetroWindow.Resources>
     <Style BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}" x:Key="CenterGridHeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
     </Style> 
-</Window.Resources>
+    <converter:DayDateToVisibilityConverter x:Key="VisibilityConverter"/>
+</mah:MetroWindow.Resources>
     <Grid Margin="10">
         <TabControl>
             <TabItem Header="Time Punch">
@@ -84,7 +85,7 @@
                     </StackPanel>
 
                     <GroupBox Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeLogs}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="false" Focusable="False" EnableColumnVirtualization="True" EnableRowVirtualization="false" >
+                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeLogs}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" EnableColumnVirtualization="True" EnableRowVirtualization="false" >
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="IsSelected" Value="False"/>
@@ -96,13 +97,13 @@
                                         <DataTemplate DataType="calendar:Day">
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding WeekDaysTest, StringFormat={}{0:dd/MM/yyyy}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[0].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[0], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding  WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal">
+                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal">
                                             </DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate> 
@@ -113,7 +114,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Monday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock Text="{Binding Test}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[1].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[1], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -130,7 +131,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Tuesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[2].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[2], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -146,7 +147,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Wednesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[2].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[3], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -162,7 +163,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Thursday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[4].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[4], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -178,7 +179,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Friday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[5].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[5], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -194,7 +195,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Saturday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <!-- <TextBlock  Text="{Binding }" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock> -->
+                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}" Text="{Binding [0].WeekDays[6].DayDate, StringFormat=d}" Visibility="{Binding [0].WeekDays[6], Converter={StaticResource VisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>

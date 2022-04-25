@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,16 +13,25 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
 {
     public class Day
     {
-        public List<TimeLog> TimeLogs { get; set; } = new List<TimeLog>();
-        public DateTime DayDate { get; set; } 
+        public ObservableCollection<TimeLog> TimeLogs { get; } = new ObservableCollection<TimeLog>();
+        public DateTime DayDate { get; private set; }
 
-        public Day() {}
-
-        public Day(DateTime date)
+        public Day()
         {
-            DayDate = date;
         }
 
+        /// <summary>
+        /// Create instance of Day and adds timelog to the list
+        /// </summary>
+        /// <param name="timeLog"></param>
+        public Day(TimeLog timeLog)
+        {
+            AddTimeLog(timeLog);
+        }
+        /// <summary>
+        /// Adds time log
+        /// </summary>
+        /// <param name="timeLog">time log</param>
         public void AddTimeLog(TimeLog timeLog)
         {
             TimeLogs.Add(timeLog);
