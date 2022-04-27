@@ -9,8 +9,8 @@
                  xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:converter="clr-namespace:TimeSheet.Windows.TimeSheet.Converter"
                  mc:Ignorable="d"
-        Height="450" Width="900"
-        Background="Gainsboro" WindowStartupLocation="CenterScreen" Title="Time Sheet" ResizeMode="NoResize">
+        Height="515" Width="900"
+        Background="Gainsboro" WindowStartupLocation="CenterScreen" Title="Time Sheet" MinHeight="515" MinWidth="900">
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
@@ -58,8 +58,8 @@
             <TabItem Header="Overview">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".25*"/>
-                        <RowDefinition Height="0.25*"/>
+                        <RowDefinition Height=".18*"/>
+                        <RowDefinition Height="0.2*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="10">
@@ -84,8 +84,8 @@
                         <TextBlock Text="{Binding LastDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                     </StackPanel>
 
-                    <GroupBox Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeLogs}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" EnableColumnVirtualization="True" EnableRowVirtualization="false" >
+                    <GroupBox Name="GroupBox" Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
+                        <DataGrid Name="WeekDataGrid" Height="{Binding ElementName=GroupBox}" Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeLogs}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="IsSelected" Value="False"/>
@@ -103,7 +103,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal">
+                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="False" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="150">
                                             </DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate> 
@@ -120,7 +121,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="True" IsReadOnly="True" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding  WeekDays[1].TimeLogs}" GridLinesVisibility="Horizontal">
+                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding  WeekDays[1].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="True" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="{Binding ElementName=WeekDataGrid, Path= ActualHeight}">
                                             </DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -137,7 +139,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[2].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid MaxHeight="160" VerticalAlignment="Stretch" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ItemsSource="{Binding WeekDays[2].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="True" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="{Binding ElementName=WeekDataGrid, Path= ActualHeight}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -153,7 +156,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[3].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[3].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="True" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="{Binding ElementName=WeekDataGrid, Path= ActualHeight}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -169,7 +173,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[4].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid SelectionMode="Single"  CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[4].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="True" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="{Binding ElementName=WeekDataGrid, Path= ActualHeight}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -185,7 +190,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[5].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid SelectionMode="Single"  CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[5].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="True" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="{Binding ElementName=WeekDataGrid, Path= ActualHeight}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -201,7 +207,8 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid IsHitTestVisible="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[6].TimeLogs}" GridLinesVisibility="Horizontal"></DataGrid>
+                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[6].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="True" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="{Binding ElementName=WeekDataGrid, Path= ActualHeight}"></DataGrid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
