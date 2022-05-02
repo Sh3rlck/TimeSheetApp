@@ -20,13 +20,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// </summary>
         public ObservableCollection<Day> WeekDays { get; set; } = new ObservableCollection<Day>
         {
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
+            new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day(),
         };
 
         public static int CurrentWeek { get; set; } = new Week().GetWeekOfYear(DateTime.Today);

@@ -27,6 +27,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
     </Style> 
     <converter:DayDateToVisibilityConverter x:Key="VisibilityConverter"/>
+    <converter:TotalHoursConverter x:Key="TotalHoursConverter"/>
 </mah:MetroWindow.Resources>
     <Grid Margin="10">
         <TabControl>
@@ -58,9 +59,10 @@
             <TabItem Header="Overview">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".18*"/>
-                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height=".15*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="10">
                         <StackPanel Orientation="Horizontal">
@@ -77,15 +79,20 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                         <TextBlock Text="Current Week: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                         <TextBlock Text="{Binding FirstDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                         <TextBlock Text=" - "   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                         <TextBlock Text="{Binding LastDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
                     </StackPanel>
 
-                    <GroupBox Name="GroupBox" Grid.Row="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Name="WeekDataGrid" Height="{Binding ElementName=GroupBox}" Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeLogs}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <TextBlock Text="Total Hours: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding TotalHours, Converter={StaticResource TotalHoursConverter}}"  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
+                    </StackPanel>
+
+                    <GroupBox Name="GroupBox" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
+                        <DataGrid Name="WeekDataGrid" Height="{Binding ElementName=GroupBox}" BorderBrush="CornflowerBlue" BorderThickness="1" Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding WeekTimeLogs}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="IsSelected" Value="False"/>
@@ -215,6 +222,24 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
+                    <Grid Grid.Row="3" Margin="15, 0, 15, 5" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.WeekTimeLogs}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                         <TextBlock Grid.Column="0" Text="{Binding [0].WeekDays[0].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                         <TextBlock Grid.Column="1" Text="{Binding [0].WeekDays[1].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                         <TextBlock Grid.Column="2" Text="{Binding [0].WeekDays[2].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                         <TextBlock Grid.Column="3" Text="{Binding [0].WeekDays[3].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                         <TextBlock Grid.Column="4" Text="{Binding [0].WeekDays[4].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                         <TextBlock Grid.Column="5" Text="{Binding [0].WeekDays[5].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                         <TextBlock Grid.Column="6" Text="{Binding [0].WeekDays[6].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

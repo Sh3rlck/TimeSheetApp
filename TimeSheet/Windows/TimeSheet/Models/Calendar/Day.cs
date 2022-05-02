@@ -14,12 +14,9 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
     public class Day
     {
         public ObservableCollection<TimeLog> TimeLogs { get; } = new ObservableCollection<TimeLog>();
-        public DateTime DayDate { get; private set; }
+        public DateTime DayDate { get; set; }
 
-        public Day()
-        {
-        }
-
+        public Day() {}
         /// <summary>
         /// Create instance of Day and adds timelog to the list
         /// </summary>

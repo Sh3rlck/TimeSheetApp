@@ -42,6 +42,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         private readonly DataQuery _dataQuery = new DataQuery();
         private Week _week = new Week();
+        private double _totalHours;
+
         #endregion private fields
 
         public DateTime FirstDateOfCurrentWeek
@@ -79,6 +81,12 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             get => _weekTimeLogs;
             private set => Set(ref _weekTimeLogs, value);
+        }
+
+        public double TotalHours
+        {
+            get => _totalHours;
+            set => Set(ref _totalHours, value);
         }
 
         public ICommand LoadCommand => new RelayCommand(OnLoadCommand);
@@ -164,6 +172,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockIn, DateTime.Now);
 
             _week.WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
+            _week.WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].DayDate = todayTimeStamp.TimeStamp;
             WeekTimeLogs[0] = _week;
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
@@ -178,6 +187,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockOut, DateTime.Now);
 
             _week.WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
+            _week.WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].DayDate = todayTimeStamp.TimeStamp;
             WeekTimeLogs[0] = _week;
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
