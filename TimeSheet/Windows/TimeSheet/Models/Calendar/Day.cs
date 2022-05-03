@@ -15,16 +15,8 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
     {
         public ObservableCollection<TimeLog> TimeLogs { get; } = new ObservableCollection<TimeLog>();
         public DateTime Date { get; set; }
+        public double TotalHours { get; set; } = 0;
 
-        public Day() {}
-        /// <summary>
-        /// Create instance of Day and adds timelog to the list
-        /// </summary>
-        /// <param name="timeLog"></param>
-        public Day(TimeLog timeLog)
-        {
-            AddTimeLog(timeLog);
-        }
         /// <summary>
         /// Adds time log
         /// </summary>

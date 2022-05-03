@@ -21,7 +21,7 @@ namespace TimeSheet.Windows.TimeSheet.Converter
 
             Week week = new Week();
             var numWeek = week.GetWeekOfYear(day.TimeLogs[0].TimeStamp);
-            return numWeek.Equals(Week.CurrentWeek) ? Visibility.Visible : Visibility.Collapsed;
+            return numWeek.Equals(week.NumWeek) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

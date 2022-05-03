@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
@@ -18,15 +19,16 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// 5 -> Friday
         /// 6 -> Saturday
         /// </summary>
-        public ObservableCollection<Day> WeekDays { get; } = new ObservableCollection<Day>
+        public List<Day> WeekDays { get; } = new List<Day>
         {
             new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day(),
         };
 
-        //add num week
-        //add num year
-        //send current week to view model
-        public static int CurrentWeek { get; set; } = new Week().GetWeekOfYear(DateTime.Today);
+        public int NumWeek { get; set; }
+
+        public int NumYear { get; set; }
+
+        public double TotalHours { get; set; } = 0;
 
         /// <summary>
         /// Returns the week number that the time stamp falls into
@@ -50,6 +52,10 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
                 (int) DateTime.Today.DayOfWeek);
         }
 
+        /// <summary>
+        /// Submits clock entry to the current day of the week
+        /// </summary>
+        /// <param name="timeEntry"></param>
         public void SubmitClockEntry(TimeLog.TimeEntry timeEntry)
         {
             var todayTimeStamp = new TimeLog(timeEntry, DateTime.Now);

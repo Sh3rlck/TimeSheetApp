@@ -39,14 +39,20 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         /// Returns a Week object with the time stamp information of the week and year specified
         /// </summary>
         /// <param name="groupedData">Data grouped by week number</param>
-        /// <param name="numYear"></param>
+        /// <param name="numWeek">week of the year</param>
+        /// <param name="numYear">year</param>
         /// <returns></returns>
-        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numYear)
+        public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
         {
-            Week week = new Week();
+            Week week = new Week
+            {
+                NumWeek = numWeek,
+                NumYear = numYear
+            };
+
             foreach (var weekGroups in groupedData)
             {
-                if(weekGroups.Key != Week.CurrentWeek)
+                if(weekGroups.Key != numWeek)
                     continue;
 
                 foreach (IGrouping<DayOfWeek, TimeLog> dayGroups in weekGroups)
