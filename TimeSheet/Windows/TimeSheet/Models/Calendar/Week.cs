@@ -18,11 +18,14 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// 5 -> Friday
         /// 6 -> Saturday
         /// </summary>
-        public ObservableCollection<Day> WeekDays { get; set; } = new ObservableCollection<Day>
+        public ObservableCollection<Day> WeekDays { get; } = new ObservableCollection<Day>
         {
             new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day(),
         };
 
+        //add num week
+        //add num year
+        //send current week to view model
         public static int CurrentWeek { get; set; } = new Week().GetWeekOfYear(DateTime.Today);
 
         /// <summary>
@@ -45,6 +48,14 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
             return  DateTime.Today.AddDays(
                 (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
                 (int) DateTime.Today.DayOfWeek);
+        }
+
+        public void SubmitClockEntry(TimeLog.TimeEntry timeEntry)
+        {
+            var todayTimeStamp = new TimeLog(timeEntry, DateTime.Now);
+            
+            WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
+            WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].Date = todayTimeStamp.TimeStamp;
         }
     }
 }

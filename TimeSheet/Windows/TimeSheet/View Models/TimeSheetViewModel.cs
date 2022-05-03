@@ -30,10 +30,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         #region private fields
 
         private string _lastActivity = "No activity registered";
-        private ObservableCollection<Week> _weekTimeLogs = new ObservableCollection<Week>
-        {
-            new Week()
-        };
+        
         private DateTime _firstDateOfCurrentWeek = Week.DateOfFirstWeekDay();
         private DateTime _lastDateOfCurrentWeek = Week.DateOfFirstWeekDay().AddDays(6);
 
@@ -41,8 +38,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         private string _numYear;
 
         private readonly DataQuery _dataQuery = new DataQuery();
-        private Week _week = new Week();
+        
         private double _totalHours;
+        private Week _currentWeek;
 
         #endregion private fields
 
@@ -77,10 +75,10 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             
         }
 
-        public ObservableCollection<Week> WeekTimeLogs
+        public Week CurrentWeek
         {
-            get => _weekTimeLogs;
-            private set => Set(ref _weekTimeLogs, value);
+            get => _currentWeek;
+            set => Set(ref _currentWeek, value);
         }
 
         public double TotalHours
@@ -100,9 +98,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
 
-            _week = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, DateTime.Now.Year);
+            CurrentWeek = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, DateTime.Now.Year);
 
-            WeekTimeLogs[0] = _week;
         }
 
         public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
@@ -119,11 +116,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             var timeLogsGroupedByWeek = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
 
-           _week = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, int.Parse(NumYear));
+           CurrentWeek = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, int.Parse(NumYear));
 
-            WeekTimeLogs[0] = _week;
-
-            NumWeek = "";
+           NumWeek = "";
             NumYear = "";
         }
 
@@ -137,9 +132,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             Week.CurrentWeek -= 1;
             var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-            _week = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, DateTime.Now.Year);
+            CurrentWeek = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, DateTime.Now.Year);
 
-            WeekTimeLogs[0] = _week;
             FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(-7);
             LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(-7);
         }
@@ -155,10 +149,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-           _week = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, DateTime.Now.Year);
+           CurrentWeek = _dataQuery.GetWeekTimeLogs(groupedTimeLogs, DateTime.Now.Year);
 
-            WeekTimeLogs[0] = _week;
-            FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(7);
+           FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(7);
             LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(7);
         }
 
@@ -171,9 +164,13 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockIn, DateTime.Now);
 
-            _week.WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
-            _week.WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].DayDate = todayTimeStamp.TimeStamp;
-            WeekTimeLogs[0] = _week;
+            //
+            CurrentWeek.SubmitClockEntry(TimeLog.TimeEntry.ClockIn);
+
+
+            //CurrentWeek.WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
+            //CurrentWeek.WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].Date = todayTimeStamp.TimeStamp;
+        
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
 
@@ -186,9 +183,9 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockOut, DateTime.Now);
 
-            _week.WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
-            _week.WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].DayDate = todayTimeStamp.TimeStamp;
-            WeekTimeLogs[0] = _week;
+            CurrentWeek.WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
+            CurrentWeek.WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].Date = todayTimeStamp.TimeStamp;
+          
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
     }

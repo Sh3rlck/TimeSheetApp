@@ -58,7 +58,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                             continue;
                         day.AddTimeLog(timeLog);
                     }
-                    week.WeekDays[(int)day.DayDate.DayOfWeek] = day;
+                    week.WeekDays[(int)day.Date.DayOfWeek] = day;
                 }
             }
             return week; 

@@ -79,12 +79,15 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock Text="Current Week: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
-                        <TextBlock Text="{Binding FirstDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
-                        <TextBlock Text=" - "   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
-                        <TextBlock Text="{Binding LastDateOfCurrentWeek, StringFormat=d}"   FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
-                    </StackPanel>
+
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Calibri" FontSize="24" FontWeight="DemiBold">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Current Week: {0:d} - {1:d}">
+                                    <Binding Path="FirstDateOfCurrentWeek"/>
+                                    <Binding Path="LastDateOfCurrentWeek"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
 
                     <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <TextBlock Text="Total Hours: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>

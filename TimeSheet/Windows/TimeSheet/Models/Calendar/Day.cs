@@ -14,7 +14,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
     public class Day
     {
         public ObservableCollection<TimeLog> TimeLogs { get; } = new ObservableCollection<TimeLog>();
-        public DateTime DayDate { get; set; }
+        public DateTime Date { get; set; }
 
         public Day() {}
         /// <summary>
@@ -32,7 +32,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         public void AddTimeLog(TimeLog timeLog)
         {
             TimeLogs.Add(timeLog);
-            DayDate = timeLog.TimeStamp;
+            Date = timeLog.TimeStamp;
         }
     }
 }
