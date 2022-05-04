@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
+using GalaSoft.MvvmLight;
 using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
 namespace TimeSheet.Windows.TimeSheet.Models.Calendar
 {
-    public class Week
+    public class Week 
     {
         /// <summary>
         /// 0 -> Sunday
@@ -60,6 +61,13 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         {
             System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
             return cal.GetWeekOfYear(timeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+            
+        }
+
+        public static int GetWeekOfYear(Week week, int dayIndex) 
+        {
+            System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
+            return cal.GetWeekOfYear(week.WeekDays[dayIndex].TimeLogs[0].TimeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
             
         }
 

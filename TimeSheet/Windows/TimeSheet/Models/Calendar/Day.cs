@@ -23,7 +23,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// <param name="timeLog">time log</param>
         public void AddTimeLog(TimeLog timeLog)
         {
-            TimeLogs.Add(timeLog);
+            TimeLogs.Add(timeLog); 
             Date = timeLog.TimeStamp;
         }
     }

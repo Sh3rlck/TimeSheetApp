@@ -28,6 +28,7 @@
     </Style> 
     <converter:DateToVisibilityConverter x:Key="DateToVisibilityConverter"/>
     <converter:TotalHoursConverter x:Key="TotalHoursConverter"/>
+    <converter:WeekToDateStringConverter x:Key="WeekToDateStringConverter"/>
 </mah:MetroWindow.Resources>
     <Grid Margin="10">
         <TabControl>
@@ -95,7 +96,7 @@
                     </StackPanel>
 
                     <GroupBox Name="GroupBox" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
-                        <DataGrid Name="WeekDataGrid" Height="{Binding ElementName=GroupBox}" BorderBrush="CornflowerBlue" BorderThickness="1" Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding  CurrentWeek}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid Name="WeekDataGrid" Height="{Binding ElementName=GroupBox}" Margin="5" ColumnHeaderStyle="{DynamicResource CenterGridHeaderStyle}" ItemsSource="{Binding  CurrentWeek}" ColumnWidth="*" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="IsSelected" Value="False"/>
@@ -107,13 +108,13 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Sunday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock Text="{Binding CurrentWeek.WeekDays[0].Date, StringFormat=d}" Visibility="{Binding CurrentWeek, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=0, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=0}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="False" 
+                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="False" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="150">
                                             </DataGrid>
                                         </DataTemplate>
@@ -125,7 +126,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Monday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}" Text="{Binding WeekDays[1].Date, StringFormat=d}" Visibility="{Binding WeekDays, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=1, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding  RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=1}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -143,7 +144,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Tuesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}" Text="{Binding WeekDays[2].Date, StringFormat=d}" Visibility="{Binding WeekDays, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=2, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=2}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -160,7 +161,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Wednesday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}" Text="{Binding WeekDays[3].Date, StringFormat=d}" Visibility="{Binding WeekDays, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=3, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=3}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -177,7 +178,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Thursday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}" Text="{Binding WeekDays[4].Date, StringFormat=d}" Visibility="{Binding WeekDays, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=4, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=4}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -194,7 +195,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Friday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}" Text="{Binding WeekDays[5].Date, StringFormat=d}" Visibility="{Binding WeekDays, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=5, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=5}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
@@ -211,7 +212,7 @@
                                         <DataTemplate>
                                             <StackPanel Margin="0, 0, 0, 2">
                                                 <TextBlock Text="Saturday" FontFamily="Calibri" FontSize="18" FontWeight="Heavy" TextAlignment="Center"></TextBlock>
-                                                <TextBlock DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}" Text="{Binding WeekDays[6].Date, StringFormat=d}" Visibility="{Binding WeekDays, Converter={StaticResource DateToVisibilityConverter}}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
+                                                <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource WeekToDateStringConverter}, Mode=TwoWay, ConverterParameter=6, TargetNullValue='Not Available', FallbackValue='null'}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.CurrentWeek, Converter={StaticResource DateToVisibilityConverter}, ConverterParameter=6}" FontFamily="Calibri" FontSize="14" TextAlignment="Center"></TextBlock>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.HeaderTemplate>
