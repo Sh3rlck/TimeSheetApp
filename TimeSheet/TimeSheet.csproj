@@ -54,10 +54,14 @@
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.2.4.9\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.LiveShare, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.LiveShare.1.1.57\lib\net461\Microsoft.VisualStudio.LiveShare.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -83,7 +87,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\Classes\Extensions\Extensions.cs" />
     <Compile Include="Common\Classes\ObservableDictionaries\ObservableDictionary.cs" />
-    <Compile Include="Windows\TimeSheet\Converter\DayDateToVisibilityConverter.cs" />
+    <Compile Include="Windows\TimeSheet\Converter\DateToVisibilityConverter.cs" />
     <Compile Include="Windows\TimeSheet\Converter\TotalHoursConverter.cs" />
     <Compile Include="Windows\TimeSheet\Models\Calendar\Day.cs" />
     <Compile Include="Windows\TimeSheet\Models\DataQuery\DataQuery.cs" />

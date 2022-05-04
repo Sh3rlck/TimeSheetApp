@@ -24,17 +24,39 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
             new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day(),
         };
 
+        /// <summary>
+        /// Week of the year
+        /// </summary>
         public int NumWeek { get; set; }
 
+        /// <summary>
+        /// Year
+        /// </summary>
         public int NumYear { get; set; }
 
+        /// <summary>
+        /// Total Hours worked in a week
+        /// </summary>
         public double TotalHours { get; set; } = 0;
+
+        public Week() {}
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="numWeek">week of the year</param>
+        /// <param name="numYear">year</param>
+        public Week(int numWeek, int numYear)
+        {
+            NumWeek = numWeek;
+            NumYear = numYear;
+        }
 
         /// <summary>
         /// Returns the week number that the time stamp falls into
         /// </summary>
         /// <returns></returns>
-        public int GetWeekOfYear(DateTime timeStamp)
+        public static int GetWeekOfYear(DateTime timeStamp)
         {
             System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
             return cal.GetWeekOfYear(timeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
@@ -62,6 +84,15 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
             
             WeekDays[(int)todayTimeStamp.TimeStamp.DayOfWeek].TimeLogs.Add(todayTimeStamp);
             WeekDays[(int) todayTimeStamp.TimeStamp.DayOfWeek].Date = todayTimeStamp.TimeStamp;
+        }
+
+        /// <summary>
+        /// Adds day to the week list property
+        /// </summary>
+        /// <param name="day"></param>
+        public void AddDay(Day day)
+        {
+            WeekDays[(int) day.Date.DayOfWeek] = day;
         }
     }
 }

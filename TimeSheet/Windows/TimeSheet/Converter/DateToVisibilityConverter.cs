@@ -11,16 +11,17 @@ using TimeSheet.Windows.TimeSheet.Models.Calendar;
 
 namespace TimeSheet.Windows.TimeSheet.Converter
 {
-    public class DayDateToVisibilityConverter : IValueConverter
+    public class DateToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(value is Day day)) return Visibility.Collapsed;
-            if (day.TimeLogs.Count == 0)
+            if (!(value is Week week))
                 return Visibility.Collapsed;
 
-            Week week = new Week();
-            var numWeek = week.GetWeekOfYear(day.TimeLogs[0].TimeStamp);
+            if (week.WeekDays.Any(day => day.TimeLogs.Count.Equals(0)))
+                return Visibility.Collapsed;
+            
+            var numWeek = Week.GetWeekOfYear(week.WeekDays[0].TimeLogs[0].TimeStamp);
             return numWeek.Equals(week.NumWeek) ? Visibility.Visible : Visibility.Collapsed;
         }
 

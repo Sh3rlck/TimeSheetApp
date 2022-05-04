@@ -93,7 +93,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-            SetCurrentWeek(groupedTimeLogs, CurrentWeek.GetWeekOfYear(DateTime.Now), DateTime.Today.Year);
+            SetCurrentWeek(groupedTimeLogs, Week.GetWeekOfYear(DateTime.Now), DateTime.Today.Year);
         }
 
         public ICommand SearchCommand => new RelayCommand(OnSearchCommand);

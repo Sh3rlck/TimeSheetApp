@@ -24,7 +24,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
             var week = new Week();
             IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupByWeek =
                 from timelog in data
-                group timelog by week.GetWeekOfYear(timelog.TimeStamp)
+                group timelog by Week.GetWeekOfYear(timelog.TimeStamp)
                 into groupedByWeek
                 from groupedByDay in (
                     from timelogs in groupedByWeek
@@ -44,11 +44,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
         /// <returns></returns>
         public Week GetWeekTimeLogs(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
         {
-            Week week = new Week
-            {
-                NumWeek = numWeek,
-                NumYear = numYear
-            };
+            Week week = new Week(numWeek, numYear);
 
             foreach (var weekGroups in groupedData)
             {
@@ -64,7 +60,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
                             continue;
                         day.AddTimeLog(timeLog);
                     }
-                    week.WeekDays[(int)day.Date.DayOfWeek] = day;
+                    week.AddDay(day);
                 }
             }
             return week; 
