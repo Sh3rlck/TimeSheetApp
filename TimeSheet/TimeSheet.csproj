@@ -90,6 +90,7 @@
     <Compile Include="Windows\TimeSheet\Converter\DateToVisibilityConverter.cs" />
     <Compile Include="Windows\TimeSheet\Converter\TotalHoursConverter.cs" />
     <Compile Include="Windows\TimeSheet\Converter\WeekToDateStringConverter.cs" />
+    <Compile Include="Windows\TimeSheet\Converter\WeekToDayConverter.cs" />
     <Compile Include="Windows\TimeSheet\Models\Calendar\Day.cs" />
     <Compile Include="Windows\TimeSheet\Models\DataQuery\DataQuery.cs" />
     <Compile Include="Windows\TimeSheet\Models\DataQuery\TimeLog.cs" />

@@ -29,6 +29,7 @@
     <converter:DateToVisibilityConverter x:Key="DateToVisibilityConverter"/>
     <converter:TotalHoursConverter x:Key="TotalHoursConverter"/>
     <converter:WeekToDateStringConverter x:Key="WeekToDateStringConverter"/>
+    <converter:WeekToDayConverterWeekToDayConverter x:Key="WeekToDayConverter"/>
 </mah:MetroWindow.Resources>
     <Grid Margin="10">
         <TabControl>
@@ -84,8 +85,8 @@
                         <TextBlock Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Calibri" FontSize="24" FontWeight="DemiBold">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}Current Week: {0:d} - {1:d}">
-                                    <Binding Path="FirstDateOfCurrentWeek"/>
-                                    <Binding Path="LastDateOfCurrentWeek"/>
+                                    <Binding Path="FirstDateOfCurrentWeek" />
+                                    <Binding Path="LastDateOfCurrentWeek" />
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
@@ -114,7 +115,7 @@
                                     </DataGridTemplateColumn.HeaderTemplate>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate DataType="calendar:Week">
-                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=WeekDays[0].TimeLogs}" GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="False" 
+                                            <DataGrid SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="14" HeadersVisibility="None" ColumnWidth="SizeToCells" MinColumnWidth="120" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type  Window}}, Path=DataContext.CurrentWeek , Converter={StaticResource WeekToDayConverter}, ConverterParameter=0}"  GridLinesVisibility="Horizontal" ScrollViewer.CanContentScroll="False" 
                                                       ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="150">
                                             </DataGrid>
                                         </DataTemplate>

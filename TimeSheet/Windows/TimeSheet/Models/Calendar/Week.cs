@@ -64,6 +64,12 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
             
         }
 
+        /// <summary>
+        /// Returns the week number 
+        /// </summary>
+        /// <param name="week"></param>
+        /// <param name="dayIndex"></param>
+        /// <returns></returns>
         public static int GetWeekOfYear(Week week, int dayIndex) 
         {
             System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
@@ -72,14 +78,25 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         }
 
         /// <summary>
-        /// Returns the Date of the first day of the week selected 
+        /// Returns the Date of the first day of a week
+        /// <param name="date">used to get week's range</param>
         /// </summary>
         /// <returns></returns>
-        public static DateTime DateOfFirstWeekDay()
+        public static DateTime GetFirstDateOfWeek(DateTime date)
         {
-            return  DateTime.Today.AddDays(
+            return  date.AddDays(
                 (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
                 (int) DateTime.Today.DayOfWeek);
+        }
+
+        /// <summary>
+        /// Returns the Date of the last day of a week
+        /// </summary>
+        /// <param name="date">used to get week's range</param>
+        /// <returns></returns>
+        public static DateTime GetLastDateOfWeek(DateTime date)
+        {
+            return GetFirstDateOfWeek(date).AddDays(6);
         }
 
         /// <summary>
