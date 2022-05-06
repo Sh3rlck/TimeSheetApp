@@ -22,7 +22,13 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// </summary>
         public List<Day> WeekDays { get; } = new List<Day>
         {
-            new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
+            new Day(),
         };
 
         /// <summary>
