@@ -6,10 +6,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
@@ -17,7 +15,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using TimeSheet.Common.Classes.Extensions;
-using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.Calendar;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
@@ -27,24 +24,19 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
     public class TimeSheetViewModel : ViewModelBase
     {
-
-        #region private fields
-
         private string _lastActivity = "No activity registered";
-        
-
-        private DateTime _firstDateOfCurrentWeek = Week.GetFirstDateOfWeek(DateTime.Today);
-        private DateTime _lastDateOfCurrentWeek = Week.GetLastDateOfWeek(DateTime.Today);
+        private ObservableCollection<Week> _weekTimeStamps = new ObservableCollection<Week>();
+        private DateTime _firstDateOfCurrentWeek = DateTime.Today.AddDays(
+            (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
+            (int) DateTime.Today.DayOfWeek);
+        private DateTime _lastDateOfCurrentWeek = DateTime.Today.AddDays(
+            (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
+            (int) DateTime.Today.DayOfWeek + 6);
 
         private string _numWeek;
         private string _numYear;
 
         private readonly DataQuery _dataQuery = new DataQuery();
-        
-        private double _totalHours;
-        private Week _currentWeek = new Week();
-
-        #endregion private fields
 
         public DateTime FirstDateOfCurrentWeek
         {
@@ -77,114 +69,100 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
             
         }
 
-        public Week CurrentWeek
+
+        public ObservableCollection<Week> WeekTimeStamps
         {
-            get => _currentWeek;
-            set => Set(ref _currentWeek, value);
+            get => _weekTimeStamps;
+            private set => Set(ref _weekTimeStamps, value);
         }
 
         public ICommand LoadCommand => new RelayCommand(OnLoadCommand);
 
-        /// <summary>
-        /// Loads Current week's time logs
-        /// </summary>
         private void OnLoadCommand()
         {
-            _dataQuery.LoadSampleData();
+            DataQuery currentWeekData = new DataQuery();
 
-            var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
-            
-            SetCurrentWeek(groupedTimeLogs, Week.GetWeekOfYear(DateTime.Now), DateTime.Today.Year);
+            currentWeekData.LoadSampleData();
+
+            var timeLogsGroupedByWeek = currentWeekData.GroupDataByWeekAndDay(DataQuery.Data);
+
+            var currentWeekTimeStamps = currentWeekData.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
+
+            WeekTimeStamps.Add(currentWeekTimeStamps);
         }
 
         public ICommand SearchCommand => new RelayCommand(OnSearchCommand);
-        
-        /// <summary>
-        /// Loads timelogs from the selected week & year
-        /// </summary>
+
         private void OnSearchCommand()
         {
             if(!(NumWeek.IsValidInt() && NumYear.IsValidInt()))
                 return;
 
+            WeekTimeStamps.Clear();
+
             var timeLogsGroupedByWeek = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
 
-            SetCurrentWeek(timeLogsGroupedByWeek, int.Parse(NumWeek), int.Parse(NumYear));
+            var searchedWeekTimeStamps = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, int.Parse(NumWeek), int.Parse(NumYear));
 
-            NumWeek = string.Empty;
-            NumYear = string.Empty;
+            WeekTimeStamps.Add(searchedWeekTimeStamps);
+            
         }
 
         public ICommand PreviousWeekCommand => new RelayCommand(OnPreviousWeekCommand);
 
-        /// <summary>
-        /// Loads previous timelogs from current week
-        /// </summary>
         private void OnPreviousWeekCommand()
         {
-            var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
+            WeekTimeStamps.Clear();
+            DataQuery.CurrentWeek -= 1;
+            var timeLogsGroupedByWeek = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-            SetCurrentWeek(groupedTimeLogs, (CurrentWeek.NumWeek -1), CurrentWeek.NumYear);
-
+            var previousWeekTimeStamps = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
+            
+            WeekTimeStamps.Add(previousWeekTimeStamps);
             FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(-7);
             LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(-7);
         }
         
         public ICommand NextWeekCommand => new RelayCommand(OnNextWeekCommand);
 
-        /// <summary>
-        /// loads next timelogs from current week
-        /// </summary>
         private void OnNextWeekCommand()
-        { 
-            var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
+        {
+            WeekTimeStamps.Clear();
+            DataQuery.CurrentWeek += 1;
 
-            SetCurrentWeek(groupedTimeLogs, (CurrentWeek.NumWeek + 1), CurrentWeek.NumYear);
+            var timeLogsGroupedByWeek = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
+            var nextWeekTimeStamps = _dataQuery.GetWeekTimeLogs(timeLogsGroupedByWeek, DataQuery.CurrentWeek, DateTime.Now.Year);
+            
+            WeekTimeStamps.Add(nextWeekTimeStamps);
             FirstDateOfCurrentWeek = FirstDateOfCurrentWeek.AddDays(7);
             LastDateOfCurrentWeek = LastDateOfCurrentWeek.AddDays(7);
         }
 
         public ICommand ClockInCommand => new RelayCommand(OnClockInCommand);
-        
-        /// <summary>
-        /// Adds Current datetime as a clock in time stamp to the current week 
-        /// </summary>
+
         private void OnClockInCommand()
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockIn, DateTime.Now);
-
-            CurrentWeek.SubmitClockEntry(TimeLog.TimeEntry.ClockIn);
-
+            Week week = new Week();
+            Day day = new Day();
+            day.AddTimeLog(todayTimeStamp);
+            week.WeekDays.Add(day);
+            WeekTimeStamps.Add(week);
             LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
         }
 
         public ICommand ClockOutCommand => new RelayCommand(OnClockOutCommand);
 
-        /// <summary>
-        /// Adds Current datetime as a clock out time stamp to the current week 
-        /// </summary>
         private void OnClockOutCommand()
         {
             var todayTimeStamp = new TimeLog(TimeLog.TimeEntry.ClockOut, DateTime.Now);
-
-            CurrentWeek.SubmitClockEntry(TimeLog.TimeEntry.ClockOut);
-          
-            LastActivity = "Clocked in at " + todayTimeStamp.TimeStamp;
-        }
-
-        /// <summary>
-        /// Sets the week object's properties
-        /// </summary>
-        /// <param name="groupedData">data for the current week specified</param>
-        /// <param name="numWeek">week of the year</param>
-        /// <param name="numYear">current year</param>
-        private void SetCurrentWeek(IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupedData, int numWeek, int numYear)
-         {
-            CurrentWeek.NumWeek = numWeek;
-            CurrentWeek.NumYear = numYear;
-
-            CurrentWeek = _dataQuery.GetWeekTimeLogs(groupedData, CurrentWeek.NumWeek, CurrentWeek.NumYear);
+            Week week = new Week();
+            Day day = new Day();
+            day.AddTimeLog(todayTimeStamp);
+            week.WeekDays.Add(day);
+            WeekTimeStamps.Add(week);
+            LastActivity = "Clocked out at " + todayTimeStamp.TimeStamp;
         }
     }
 }
