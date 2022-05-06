@@ -88,7 +88,6 @@
     <Compile Include="Common\Classes\Extensions\Extensions.cs" />
     <Compile Include="Common\Classes\ObservableDictionaries\ObservableDictionary.cs" />
     <Compile Include="Windows\TimeSheet\Converter\DateToVisibilityConverter.cs" />
-    <Compile Include="Windows\TimeSheet\Converter\TotalHoursConverter.cs" />
     <Compile Include="Windows\TimeSheet\Converter\WeekToDateStringConverter.cs" />
     <Compile Include="Windows\TimeSheet\Converter\WeekToDayConverter.cs" />
     <Compile Include="Windows\TimeSheet\Models\Calendar\Day.cs" />

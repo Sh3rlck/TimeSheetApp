@@ -27,7 +27,6 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
     </Style> 
     <converter:DateToVisibilityConverter x:Key="DateToVisibilityConverter"/>
-    <converter:TotalHoursConverter x:Key="TotalHoursConverter"/>
     <converter:WeekToDateStringConverter x:Key="WeekToDateStringConverter"/>
     <converter:WeekToDayConverterWeekToDayConverter x:Key="WeekToDayConverter"/>
 </mah:MetroWindow.Resources>
