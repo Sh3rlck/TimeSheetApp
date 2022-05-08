@@ -17,7 +17,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using TimeSheet.Common.Classes.Extensions;
-using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.Calendar;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
