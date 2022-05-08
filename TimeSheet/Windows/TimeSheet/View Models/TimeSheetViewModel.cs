@@ -20,8 +20,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         private string _lastActivity = "No activity";
         
-        private DateTime _firstDateOfCurrentWeek = Week.DateOfFirstWeekDay();
-        private DateTime _lastDateOfCurrentWeek = Week.DateOfFirstWeekDay().AddDays(6);
+        private DateTime _firstDateOfCurrentWeek = Week.DateOfFirstDay(DateTime.Today);
+        private DateTime _lastDateOfCurrentWeek = Week.DateOfLastDay(DateTime.Today);
 
         private string _numWeek;
         private string _numYear;
@@ -81,7 +81,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
             var groupedTimeLogs = _dataQuery.GroupDataByWeekAndDay(DataQuery.Data);
             
-            SetCurrentWeek(groupedTimeLogs, CurrentWeek.GetWeekOfYear(DateTime.Now), DateTime.Today.Year);
+            SetCurrentWeek(groupedTimeLogs, Week.GetWeekOfYear(DateTime.Now), DateTime.Today.Year);
         }
 
         public ICommand SearchCommand => new RelayCommand(OnSearchCommand);

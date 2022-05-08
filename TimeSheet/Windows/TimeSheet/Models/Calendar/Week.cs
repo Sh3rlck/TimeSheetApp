@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using TimeSheet.Common.Classes.ObservableDictionaries;
 using TimeSheet.Windows.TimeSheet.Models.DataQuery;
 
 namespace TimeSheet.Windows.TimeSheet.Models.Calendar
@@ -28,13 +25,14 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
 
         public int NumYear { get; set; }
 
+        //not implemented yet
         public double TotalHours { get; set; } = 0;
 
         /// <summary>
         /// Returns the week number that the time stamp falls into
         /// </summary>
         /// <returns></returns>
-        public int GetWeekOfYear(DateTime timeStamp)
+        public static int GetWeekOfYear(DateTime timeStamp)
         {
             System.Globalization.Calendar cal = new CultureInfo("en-US").Calendar;
             return cal.GetWeekOfYear(timeStamp, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
@@ -45,13 +43,21 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// Returns the Date of the first day of the week selected 
         /// </summary>
         /// <returns></returns>
-        public static DateTime DateOfFirstWeekDay()
+        public static DateTime DateOfFirstDay(DateTime date)
         {
-            return  DateTime.Today.AddDays(
+            return  date.AddDays(
                 (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
                 (int) DateTime.Today.DayOfWeek);
         }
 
+        /// <summary>
+        /// Returns the Date of the last day of the week selected 
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime DateOfLastDay(DateTime date)
+        {
+            return  DateOfFirstDay(date).AddDays(6);
+        }
         /// <summary>
         /// Submits clock entry to the current day of the week
         /// </summary>

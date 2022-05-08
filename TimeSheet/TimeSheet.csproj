@@ -51,6 +51,9 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="LambdaConverters.Wpf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6258cb5075259882, processorArchitecture=MSIL">
+      <HintPath>..\packages\LambdaConverters.4.0.0\lib\net46\LambdaConverters.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.2.4.9\lib\net47\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -83,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\Classes\Extensions\Extensions.cs" />
     <Compile Include="Common\Classes\ObservableDictionaries\ObservableDictionary.cs" />
+    <Compile Include="Windows\TimeSheet\Converter\Converters.cs" />
     <Compile Include="Windows\TimeSheet\Converter\DayDateToVisibilityConverter.cs" />
     <Compile Include="Windows\TimeSheet\Models\Calendar\Day.cs" />
     <Compile Include="Windows\TimeSheet\Models\DataQuery\DataQuery.cs" />

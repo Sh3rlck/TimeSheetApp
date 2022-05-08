@@ -20,7 +20,7 @@ namespace TimeSheet.Windows.TimeSheet.Converter
                 return Visibility.Collapsed;
 
             Week week = new Week();
-            var numWeek = week.GetWeekOfYear(day.TimeLogs[0].TimeStamp);
+            var numWeek = Week.GetWeekOfYear(day.TimeLogs[0].TimeStamp);
             return numWeek.Equals(week.NumWeek) ? Visibility.Visible : Visibility.Collapsed;
         }
 
