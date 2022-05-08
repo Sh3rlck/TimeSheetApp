@@ -26,8 +26,8 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
     {
         private string _lastActivity = "No activity registered";
         private Week _weekTimeStamps;
-        private DateTime _firstDateOfCurrentWeek = Week.GetFirstDateOfWeek(DateTime.Today);
-        private DateTime _lastDateOfCurrentWeek = Week.GetLastDateOfWeek(DateTime.Today);
+        private DateTime _firstDateOfCurrentWeek = Week.DateOfFirstDay(DateTime.Today);
+        private DateTime _lastDateOfCurrentWeek = Week.DateOfLastDay(DateTime.Today);
 
         private string _numWeek;
         private string _numYear;

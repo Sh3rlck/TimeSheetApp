@@ -77,11 +77,16 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// Returns the Date of the first day of the week selected 
         /// </summary>
         /// <returns></returns>
-        public static DateTime DateOfFirstWeekDay()
+        public static DateTime DateOfFirstDay(DateTime date)
         {
-            return  DateTime.Today.AddDays(
+            return  date.AddDays(
                 (int) CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek - 
                 (int) DateTime.Today.DayOfWeek);
+        }
+
+        public static DateTime DateOfLastDay(DateTime date)
+        {
+            return DateOfFirstDay(date).AddDays(6);
         }
 
         /// <summary>
