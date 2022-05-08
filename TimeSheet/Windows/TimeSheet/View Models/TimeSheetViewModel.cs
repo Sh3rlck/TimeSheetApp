@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -29,7 +18,7 @@ namespace TimeSheet.Windows.TimeSheet.View_Models
 
         #region private fields
 
-        private string _lastActivity = "No activity registered";
+        private string _lastActivity = "No activity";
         
         private DateTime _firstDateOfCurrentWeek = Week.DateOfFirstWeekDay();
         private DateTime _lastDateOfCurrentWeek = Week.DateOfFirstWeekDay().AddDays(6);
