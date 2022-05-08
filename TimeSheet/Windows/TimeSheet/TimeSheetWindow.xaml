@@ -224,24 +224,6 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
-                    <Grid Grid.Row="3" Margin="15, 0, 15, 5" DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.CurrentWeek}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                         <TextBlock Grid.Column="0" Text="{Binding WeekDays[0].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                         <TextBlock Grid.Column="1" Text="{Binding WeekDays[1].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                         <TextBlock Grid.Column="2" Text="{Binding WeekDays[2].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                         <TextBlock Grid.Column="3" Text="{Binding WeekDays[3].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                         <TextBlock Grid.Column="4" Text="{Binding WeekDays[4].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                         <TextBlock Grid.Column="5" Text="{Binding WeekDays[5].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                         <TextBlock Grid.Column="6" Text="{Binding WeekDays[6].TimeLogs, Converter={StaticResource TotalHoursConverter}, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>
