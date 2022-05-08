@@ -21,6 +21,7 @@ namespace TimeSheet.Windows.TimeSheet.Models.DataQuery
          /// <returns></returns>
          public IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> GroupDataByWeekAndDay(IEnumerable<TimeLog> data)
         {
+            Week week = new Week();
             IEnumerable<IGrouping<int, IGrouping<DayOfWeek, TimeLog>>> groupByWeek =
                 from timelog in data
                 group timelog by week.GetWeekOfYear(timelog.TimeStamp)

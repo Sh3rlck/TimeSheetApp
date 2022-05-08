@@ -27,7 +27,6 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
     </Style> 
     <converter:DayDateToVisibilityConverter x:Key="VisibilityConverter"/>
-    <converter:TotalHoursConverter x:Key="TotalHoursConverter"/>
 </mah:MetroWindow.Resources>
     <Grid Margin="10">
         <TabControl>
@@ -91,7 +90,7 @@
 
                     <StackPanel Grid.Row="1" Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <TextBlock Text="Total Hours: "  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
-                        <TextBlock Text="{Binding CurrentWeek.TotalHours, Converter={StaticResource TotalHoursConverter}}"  FontFamily="Calibri" FontSize="24" FontWeight="DemiBold"/>
+
                     </StackPanel>
 
                     <GroupBox Name="GroupBox" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Header="Weekly Overview" mah:ControlsHelper.ContentCharacterCasing="Normal" FontFamily="Calibri">
