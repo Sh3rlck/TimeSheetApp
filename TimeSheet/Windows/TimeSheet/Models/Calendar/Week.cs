@@ -20,15 +20,9 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// 5 -> Friday
         /// 6 -> Saturday
         /// </summary>
-        public List<Day> WeekDays { get; } = new List<Day>
+        public ObservableCollection<Day> WeekDays { get; } = new ObservableCollection<Day>
         {
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
-            new Day(),
+            new Day(), new Day(), new Day(), new Day(), new Day(), new Day(), new Day(),
         };
 
         /// <summary>
@@ -45,6 +39,8 @@ namespace TimeSheet.Windows.TimeSheet.Models.Calendar
         /// Total Hours worked in a week
         /// </summary>
         public double TotalHours { get; set; } = 0;
+
+        public static int CurrentWeek { get; set; } = GetWeekOfYear(DateTime.Today);
 
         public Week() {}
 
